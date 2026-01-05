@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>78张卡片同向洗牌动画</title>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --btn-color: #3498db;
+            --card-color: #ffffff;
+            --card-border: #dcdde1;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        #stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px; /* 为可能的3D效果留出空间 */
+        }
+
+        /* 洗牌按钮 */
+        #shuffleBtn {
+            position: absolute;
+            z-index: 1000;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: var(--btn-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(52, 152, 219, 0.4);
+            transition: transform 0.1s, box-shadow 0.2s;
+            user-select: none;
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #shuffleBtn:active {
+            transform: scale(0.92);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.6);
+        }
+
+        /* 卡片样式 */
+        .card {
+            position: absolute;
+            width: 70px; /* 宽高比 2:1 */
+            height: 35px;
+            background: var(--card-color);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #2f3640;
+            border: 1px solid var(--card-border);
+            will-change: transform;
+        }
+
+        /* 提示文字 */
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            color: #555;
+            font-size: 13px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="stage">
+    <button id="shuffleBtn">按住洗牌</button>
+    <div class="hint">HOLD TO SHUFFLE</div>
+</div>
+
+<script>
+    const stage = document.getElementById('stage');
+    const btn = document.getElementById('shuffleBtn');
+    const cardCount = 78;
+    const cards = [];
+    let isShuffling = false;
+
+    /**
+     * 初始化卡片
+     */
+    function initCards() {
+        for (let i = 0; i < cardCount; i++) {
+            const el = document.createElement('div');
+            el.className = 'card';
+            // 卡片内容：显示编号或简单的装饰
+            el.innerText = i + 1;
+            
+            // 随机卡片背景色，增加视觉丰富度
+            const hue = (i * 360 / cardCount);
+            el.style.borderTop = `3px solid hsl(${hue}, 70%, 50%)`;
+            
+            stage.appendChild(el);
+
+            const card = {
+                el: el,
+                // 初始随机位置
+                angle: Math.random() * Math.PI * 2,
+                radius: 130 + Math.random() * 220, 
+                rotation: Math.random() * 360,
+                // 核心修改：公转速度统一为正数（顺时针），但数值随机
+                orbitSpeed: 0.008 + Math.random() * 0.025, 
+                // 自转速度随机
+                spinSpeed: 3 + Math.random() * 8
+            };
+            
+            cards.push(card);
+            updateCardTransform(card);
+        }
+    }
+
+    /**
+     * 更新卡片的 transform 属性
+     */
+    function updateCardTransform(card) {
+        const x = Math.cos(card.angle) * card.radius;
+        const y = Math.sin(card.angle) * card.radius;
+        // 使用 translate3d 提高性能，结合 rotate 实现自转
+        card.el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${card.rotation}deg)`;
+    }
+
+    /**
+     * 每一帧的动画处理
+     */
+    function step() {
+        if (isShuffling) {
+            cards.forEach(card => {
+                // 公转：所有牌增加角度（顺时针）
+                card.angle += card.orbitSpeed;
+                // 自转：每张牌按自己的速度旋转
+                card.rotation += card.spinSpeed;
+                
+                updateCardTransform(card);
+            });
+        }
+        requestAnimationFrame(step);
+    }
+
+    // --- 事件监听 ---
+
+    const startAction = (e) => {
+        e.preventDefault();
+        isShuffling = true;
+    };
+    
+    const stopAction = () => {
+        isShuffling = false;
+    };
+
+    // 鼠标交互
+    btn.addEventListener('mousedown', startAction);
+    window.addEventListener('mouseup', stopAction);
+
+    // 触摸交互（兼容手机）
+    btn.addEventListener('touchstart', startAction);
+    window.addEventListener('touchend', stopAction);
+
+    // 初始化并启动动画
+    initCards();
+    requestAnimationFrame(step);
+</script>
+
+</body>
+</html>

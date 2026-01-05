@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>78张塔罗牌 - 全屏无缝版</title>
+    <style>
+        :root {
+            /* 根据 78 张牌计算的动态尺寸 */
+            /* 假设排成 6 行，每行 13 张 */
+            --card-h: 14vh; 
+            --card-w: calc(var(--card-h) * 0.6);
+            --accent: #d4af37;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #0f0f12;
+            height: 100vh;
+            width: 100vw;
+            /* 关键：严格禁止滚动条 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            height: 6vh;
+            line-height: 6vh;
+            color: var(--accent);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 塔罗牌容器 */
+        .board {
+            width: 98vw;
+            height: 90vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            /* 负边距实现瓦片状重叠 */
+            gap: -1vw; 
+            perspective: 1000px;
+        }
+
+        .card {
+            width: var(--card-w);
+            height: var(--card-h);
+            /* 负边距：通过此值控制重叠程度 */
+            margin: -0.4vh -0.5vw; 
+            cursor: pointer;
+            z-index: 1;
+            transition: transform 0.3s, z-index 0s;
+        }
+
+        /* 悬停时提到最上层 */
+        .card:hover {
+            z-index: 100;
+            transform: scale(1.1) translateY(-5px);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* 翻转状态 */
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* 背面：初始朝上（问号） */
+        .card-back {
+            background: radial-gradient(circle, #1a2a6c, #000000);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        /* 正面：翻开（数字） */
+        .card-front {
+            background-color: #eee;
+            color: #222;
+            transform: rotateY(180deg);
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* 装饰花纹 */
+        .card-back::before {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 85%;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tarot Deck (78)</h1>
+    <div class="board" id="board"></div>
+
+    <script>
+        const board = document.getElementById('board');
+        const total = 78;
+
+        for (let i = 1; i <= total; i++) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-face card-back">?</div>
+                    <div class="card-face card-front">${i}</div>
+                </div>
+            `;
+
+            card.onclick = function() {
+                this.classList.toggle('flipped');
+            };
+
+            board.appendChild(card);
+        }
+    </script>
+</body>
+</html>
