@@ -1,5 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineEmits, inject, computed } from 'vue'
+import btnRestart from './btn-restart.vue'
+const emit = defineEmits(['restart'])
 
 const props = defineProps({
     selectedCardList: {
@@ -7,7 +9,9 @@ const props = defineProps({
         default: () => []
     }
 })
-
+const currentCard = computed(() => {
+    return props.selectedCardList.find(card => card.id === currentCardId.value) || {}
+})
 const currentCardId = ref('')
 
 // 2. 计算分组后的二维数组（核心逻辑）
@@ -34,20 +38,29 @@ function handleCardClick(card) {
     console.log(card)
     currentCardId.value = card.id
 }
+
+function handleRestart() {
+    currentCardId.value = ''
+    emit('restart')
+}
 </script>
 
 <template>
     <div class="h-full w-full">
-        <div class="overlay" v-if="currentCardId" @click="currentCardId = ''"></div>
+        <btnRestart />
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
-                <div class="card" :class="{ 'active': card.id === currentCardId }" v-for="(card, cardIndex) in row"
+                <div class="card" v-for="(card, cardIndex) in row"
                     :key="cardIndex" @click="handleCardClick(card)">
                     {{ card.index }}
                 </div>
             </div>
         </div>
+        <div class="overlay" v-if="currentCardId" @click="currentCardId = ''"></div>
+        <transition name="zoom">
+            <div class="card" :class="{ 'active': currentCardId }" v-if="currentCardId">{{ currentCard.index }}</div>
+        </transition>
     </div>
 </template>
 
@@ -116,4 +129,29 @@ function handleCardClick(card) {
     background: rgba(0, 0, 0, 0.8);
     z-index: 10;
 }
+
+/* 遮罩层过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+/* 卡片缩放过渡效果 */
+.zoom-enter-active,
+.zoom-leave-active {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.zoom-enter-from,
+.zoom-leave-to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+
 </style>

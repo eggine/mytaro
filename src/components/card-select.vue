@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, nextTick, onUnmounted, computed, defineProps } from 'vue'
 import { getUUID } from '@/utils/index'
+import btnRestart from './btn-restart.vue'
 
 const emit = defineEmits(['selectCard'])
 const props = defineProps({
@@ -102,6 +103,7 @@ onUnmounted(() => {
 
 <template>
   <div class="cards-container">
+    <btnRestart />
     <div class="text-center text-white font-bold title" v-if="selectedCardList.length === 0">请选{{ cardSpreadNum }}张牌
     </div>
     <div class="text-center text-white font-bold title" v-if="selectedCardList.length > 0">请再选{{ cardSpreadNum -

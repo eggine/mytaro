@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineEmits, inject } from 'vue'
+import btnRestart from './btn-restart.vue'
 
 const emit = defineEmits(['shuffleEnd'])
 const props = defineProps({
@@ -345,6 +346,7 @@ onUnmounted(() => {
 
 <template>
     <div class="shuffle-container">
+        <btnRestart />
         <!-- 卡片容器，用于定位卡片 -->
         <div class="cards-container">
             <div v-for="(card, index) in cards" :key="index" class="card" :style="cardStyle(card)">
