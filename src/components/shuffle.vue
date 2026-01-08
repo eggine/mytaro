@@ -184,14 +184,14 @@ function initCards() {
         }
 
         // 公转速度
-        const orbitSpeed = 4.5 + Math.random() * 1.5;
+        const orbitSpeed = 1.5 + Math.random() * 0.5;
 
         // ========== 核心修改：强化自转的随机性 ==========
         // 1. 随机初始自转角度（0-360°），确保每张牌初始朝向不同
         const initRotation = Math.random() * 360;
         // 2. 随机自转速度（包含正负值，实现顺时针/逆时针随机），范围：-5 ~ 5°/帧
         // 负数=逆时针，正数=顺时针，绝对值越大转速越快
-        const spinSpeed = (Math.random() - 0.5) * 100; 
+        const spinSpeed = (Math.random() - 0.5) * 10; 
 
         const card = {
             index: i + 1,
