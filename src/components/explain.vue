@@ -51,8 +51,7 @@ function handleRestart() {
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
-                <div class="card" v-for="(card, cardIndex) in row"
-                    :key="cardIndex" @click="handleCardClick(card)">
+                <div class="card" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
                     {{ card.index }}
                 </div>
             </div>
@@ -71,6 +70,9 @@ function handleRestart() {
     align-items: center;
     flex-direction: column;
     padding: 1rem;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .card-row {
@@ -152,6 +154,4 @@ function handleRestart() {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.5);
 }
-
-
 </style>

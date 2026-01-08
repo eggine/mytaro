@@ -113,7 +113,7 @@ function initCards() {
     const minDistanceToEdgeX = Math.min(buttonCenterX, screenWidth.value - buttonCenterX);
     const minDistanceToEdgeY = Math.min(buttonCenterY, screenHeight.value - buttonCenterY);
 
-    // 计算最大半径，减小最大半径，让卡片更靠近中心
+    // 计算最大半径，减小最大半径，让卡片更靠近
     const maxRadiusX = minDistanceToEdgeX - cardWidthPx / 2;
     const maxRadiusY = minDistanceToEdgeY - cardHeightPx / 2;
     const maxRadius = Math.min(maxRadiusX, maxRadiusY) * 0.6; // 从0.9减少到0.6，让卡片更靠近
@@ -186,13 +186,20 @@ function initCards() {
         // 公转速度
         const orbitSpeed = 4.5 + Math.random() * 1.5;
 
+        // ========== 核心修改：强化自转的随机性 ==========
+        // 1. 随机初始自转角度（0-360°），确保每张牌初始朝向不同
+        const initRotation = Math.random() * 360;
+        // 2. 随机自转速度（包含正负值，实现顺时针/逆时针随机），范围：-5 ~ 5°/帧
+        // 负数=逆时针，正数=顺时针，绝对值越大转速越快
+        const spinSpeed = (Math.random() - 0.5) * 100; 
+
         const card = {
             index: i + 1,
             angle: angle,
             radius: radius,
-            rotation: Math.random() * 360,
+            rotation: initRotation, // 赋值随机初始自转角度
             orbitSpeed: orbitSpeed,
-            spinSpeed: 2.5 + Math.random() * 3,
+            spinSpeed: spinSpeed, // 赋值随机自转速度
             zIndex: i,
             orbitIndex: Math.floor(i / cardsPerOrbit) % orbitCount,
             x: Math.cos(angle) * radius,
@@ -282,6 +289,7 @@ const cardStyle = (card) => {
     return {
         left: `${left}px`,
         top: `${top}px`,
+        // 核心：应用自转角度（rotation）
         transform: `translate(-50%, -50%) rotate(${card.rotation}deg)`,
         zIndex: card.zIndex,
         backgroundColor: '#fff',
@@ -299,8 +307,11 @@ function step() {
             // 公转
             card.angle += card.orbitSpeed * 0.015;
 
-            // 自转
+            // ========== 核心：持续更新自转角度 ==========
+            // 每帧累加自转速度，实现持续自转
             card.rotation += card.spinSpeed;
+            // 可选：将角度限制在0-360°，避免数值无限增大（不影响视觉，但更优雅）
+            card.rotation = card.rotation % 360;
 
             // 确保角度在0-2π之间
             if (card.angle < 0) card.angle += 2 * Math.PI;
@@ -485,7 +496,7 @@ onUnmounted(() => {
     color: #333;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border: 1px solid #e0e0e0;
-    transform-origin: center;
+    transform-origin: center; /* 关键：确保自转围绕卡片中心 */
     z-index: 10;
     pointer-events: none;
 }
@@ -493,7 +504,6 @@ onUnmounted(() => {
 /* 确保按钮在卡片之上 */
 .btn-container {
     z-index: 100;
-    /* position: relative; */
 }
 
 /* 卡片容器，用于定位卡片 */

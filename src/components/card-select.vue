@@ -75,7 +75,7 @@ const resizeHandler = () => {
 
 // 点击卡片事件
 const handleCardClick = (item) => {
-  if (selectedCardList.value.length >= cardSpreadNum.value) {
+  if (selectedCardList.value.length >= cardSpreadNum.value || selectedCardList.value.map(card => card.id).includes(item.id)) {
     return
   }
   console.log(item)
