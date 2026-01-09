@@ -52,13 +52,28 @@ function handleRestart() {
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
                 <div class="card" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
-                    {{ card.index }}
+                    <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
                 </div>
             </div>
         </div>
         <div class="overlay" v-if="currentCardId" @click="currentCardId = ''"></div>
         <transition name="zoom">
-            <div class="card" :class="{ 'active': currentCardId }" v-if="currentCardId">{{ currentCard.index }}</div>
+            <div v-if="currentCardId" class="card-box-fixed" @click="currentCardId = ''">
+                <div @click.stop>
+
+                    <div class="title-box">
+                        <div class="card-desc">描述：{{ currentCard.description }}</div>
+                        <div class="card-upright">正面：{{ currentCard.upright }}</div>
+                        <div class="card-reversed">反面：{{ currentCard.reversed }}</div>
+                    </div>
+                    <div :class="{ 'active-box': currentCardId }">
+                        <div class="card-name">{{ currentCard.name }}</div>
+                        <div class="card">
+                            <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </transition>
     </div>
 </template>
@@ -111,11 +126,18 @@ function handleRestart() {
     box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
 }
 
-.card.active {
-    position: fixed;
+.active-box {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    transform: scale(2.5);
+}
+
+.active-box .card {
+    /* position: fixed; */
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(2.5);
+    transform: translate(-50%, -50%);
     /* 居中并放大 */
     z-index: 100;
     cursor: zoom-out;
@@ -153,5 +175,49 @@ function handleRestart() {
 .zoom-leave-to {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.5);
+}
+
+.card-box-fixed {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.title-box {
+    width: 4rem;
+    position: fixed;
+    left: 70%;
+    font-size: 0.25rem;
+    color: #fff;
+    top: 30%;
+    padding-right: 0.3rem;
+}
+
+.card-name {
+    font-size: 0.15rem;
+    color: #fff;
+    text-align: center;
+    left: 0;
+    right: 0;
+    position: absolute;
+    transform: translateY(-150%);
+}
+
+@media screen and (max-width: 760px) {
+    .title-box {
+        bottom: 10%;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        padding-right: 0;
+    }
 }
 </style>

@@ -9,16 +9,22 @@ const subjectTypeList = ref([
         name: '感情',
         children: [
             {
-                id: 11,
+                id: 'RWS_Tarot_',
                 name: '感情-1',
-                cardNum: 78,
+                cardNum: 21,
                 cardSpread: 3
             },
             {
-                id: 12,
+                id: 'Wands',
                 name: '感情-2',
-                cardNum: 78,
-                cardSpread: 6
+                cardNum: 14,
+                cardSpread: 3
+            },
+            {
+                id: 'Pents',
+                name: '感情-2',
+                cardNum: 14,
+                cardSpread: 3
             }
         ]
     },
@@ -27,15 +33,15 @@ const subjectTypeList = ref([
         name: '事业',
         children: [
             {
-                id: 21,
+                id: 'Cups',
                 name: '事业-1',
-                cardNum: 48,
+                cardNum: 14,
                 cardSpread: 3
             },
             {
-                id: 22,
+                id: 'Swords',
                 name: '事业-2',
-                cardNum: 78,
+                cardNum: 14,
                 cardSpread: 6
             }
         ]

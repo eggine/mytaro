@@ -2,7 +2,9 @@
 import { ref, onMounted, nextTick, onUnmounted, computed, defineProps } from 'vue'
 import { getUUID } from '@/utils/index'
 import btnRestart from './btn-restart.vue'
+import groupedCards from '@/assets/json/groupedCards.json'
 
+console.log(groupedCards)
 const emit = defineEmits(['selectCard'])
 const props = defineProps({
   selectedSubject: {
@@ -10,11 +12,13 @@ const props = defineProps({
     default: () => ({})
   }
 })
+const subjectId = props.selectedSubject.id
+  const subjectCards = groupedCards[subjectId]
 // 响应式卡片配置
 const totalCardNum = props.selectedSubject.cardNum
 // 基础卡片尺寸 (rem为单位，适配所有屏幕)
 const cardBaseW = ref(0.8)  // 卡片宽度
-const cardBaseH = ref(1.6)  // 卡片高度
+const cardBaseH = ref(1.2)  // 卡片高度
 // 核心：每张卡片向右重叠 1/3 宽度 (固定比例)
 const overlapRatio = 1 / 3
 const overlapWidth = computed(() => cardBaseW.value * overlapRatio)
@@ -36,7 +40,12 @@ const initCardList = () => {
     randomRotate: (Math.random() - 0.5) * 4, // 随机±2度旋转，错落有致
     // ✨ 新增：核心-给每个卡片生成递增的延迟时间，实现依次出场 i越大延迟越长
     delayMs: i * animateDelayStep,
-    id: getUUID(),
+    id: subjectCards[i].id,
+    name: subjectCards[i].name,
+    description: subjectCards[i].description,
+    upright: subjectCards[i].upright,
+    reversed: subjectCards[i].reversed,
+    img: '/data/MinorArcana/' + subjectId + '/' + subjectCards[i].id + '.jpg'
   }))
   const totalDelayMs = (totalCardNum - 1) * animateDelayStep
   setTimeout(() => {
@@ -87,6 +96,10 @@ const handleCardClick = (item) => {
   }
 }
 
+function handleCardImg(item) {
+  return '/data/MinorArcana/' + subjectId + '/' + item.id + '.jpg'
+}
+
 
 
 // 生命周期
@@ -116,8 +129,12 @@ onUnmounted(() => {
         transitionDelay: `${item.delayMs}ms`
       }" @click="handleCardClick(item)">
         <div class="card-inner">
-        <div class="card-face card-back">？</div>
-        <div class="card-face card-front">{{ item.index }}</div>
+        <div class="card-face card-back">
+          <img src="/data/back.jpg" width="100%" height="100%" style="width: 100%; height: 100%;" />
+        </div>
+        <div class="card-face card-front">
+           <img :src="item.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
+        </div>
         </div>
       </div>
     </div>
@@ -165,8 +182,8 @@ onUnmounted(() => {
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 4px !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  border: 2px solid #868686;
-  background: radial-gradient(circle, #a53d4e, #e94560);
+  /* border: 2px solid #868686; */
+  /* background: radial-gradient(circle, #a53d4e, #e94560); */
   position: relative;
   flex-shrink: 0;
   margin-bottom: 0.02rem;
@@ -190,8 +207,8 @@ onUnmounted(() => {
 .card:hover {
   transform: scale(1.08) !important;
   z-index: 1000 !important;
-  box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
-  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9);
+  border-color: rgba(0, 0, 0, 0.8);
 }
 
 /* ✨ 微调动画初始样式：和过渡属性完美匹配，入场更丝滑 */
@@ -244,6 +261,8 @@ cubic-bezier(0.23, 1, 0.32, 1);
     color: #222;
     transform: rotateY(180deg);
     font-weight: bold;
+    width: 100%;
+    height: 100%;
 }
 
 .card.active .card-inner{

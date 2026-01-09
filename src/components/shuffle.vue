@@ -292,7 +292,7 @@ const cardStyle = (card) => {
         // 核心：应用自转角度（rotation）
         transform: `translate(-50%, -50%) rotate(${card.rotation}deg)`,
         zIndex: card.zIndex,
-        backgroundColor: '#fff',
+        // backgroundColor: '#fff',
         boxShadow: `0 2px 6px rgba(0,0,0,${0.1 + card.orbitIndex * 0.02})`,
         borderColor: `hsl(${card.orbitIndex * 40}, 50%, 85%)`
     };
@@ -361,9 +361,7 @@ onUnmounted(() => {
         <!-- 卡片容器，用于定位卡片 -->
         <div class="cards-container">
             <div v-for="(card, index) in cards" :key="index" class="card" :style="cardStyle(card)">
-                <div class="cards-number text-[0.5rem]">
-                    ？
-                </div>
+                <img src="/data/back.jpg" width="100%" height="100%" />
             </div>
         </div>
 
@@ -485,7 +483,7 @@ onUnmounted(() => {
     position: absolute;
     width: 0.8rem;
     height: 1.6rem;
-    background: radial-gradient(circle, #a53d4e, #e94560);
+    /* background: radial-gradient(circle, #a53d4e, #e94560); */
     color: var(--color);
     border-radius: 0.06rem;
     display: flex;
@@ -495,7 +493,7 @@ onUnmounted(() => {
     font-weight: bold;
     color: #333;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: 1px solid #e0e0e0;
+    /* border: 1px solid #e0e0e0; */
     transform-origin: center; /* 关键：确保自转围绕卡片中心 */
     z-index: 10;
     pointer-events: none;
