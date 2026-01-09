@@ -155,7 +155,6 @@ onUnmounted(() => {
   top: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #0a0e2a 0%, #1a237e 50%, #283593 100%);
   overflow: auto;
   cursor: pointer;
   padding: 0.5rem;
