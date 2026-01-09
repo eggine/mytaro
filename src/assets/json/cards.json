@@ -1,0 +1,625 @@
+[
+  {
+    "id": "RWS_Tarot_00_Fool",
+    "name": "愚者 (The Fool)",
+    "description": "少年走向悬崖，白犬相随，手持白玫瑰。",
+    "upright": "开始、冒险、纯真、无限可能",
+    "reversed": "鲁莽、愚蠢、犹豫不决、缺乏计划"
+  },
+
+  {
+    "id": "RWS_Tarot_01_Magician",
+    "name": "魔术师 (The Magician)",
+    "description": "头顶无限大符号，桌上摆放四元素法器。",
+    "upright": "创造力、行动力、沟通、掌控力",
+    "reversed": "欺骗、怀才不遇、精神不振、犹豫"
+  },
+
+  {
+    "id": "RWS_Tarot_02_High_Priestess",
+    "name": "女祭司 (The High Priestess)",
+    "description": "坐于黑白柱间，手持卷轴，脚踏月亮。",
+    "upright": "直觉、潜意识、智慧、静默",
+    "reversed": "浅薄、焦虑、流言蜚语、压抑情感"
+  },
+
+  {
+    "id": "RWS_Tarot_03_Empress",
+    "name": "皇后 (The Empress)",
+    "description": "森林中雍容的女性，盾牌上有金星符号。",
+    "upright": "丰收、母性、感官享受、自然",
+    "reversed": "创意枯竭、依赖、过度保护、浪费"
+  },
+
+  {
+    "id": "RWS_Tarot_04_Emperor",
+    "name": "皇帝 (The Emperor)",
+    "description": "严肃老者坐于羊头宝座，手持权杖。",
+    "upright": "权威、秩序、父权、稳定、意志",
+    "reversed": "专制、软弱、缺乏纪律、控制欲"
+  },
+
+  {
+    "id": "RWS_Tarot_05_Hierophant",
+    "name": "教皇 (The Hierophant)",
+    "description": "坐于信徒前，手持法杖指向天空。",
+    "upright": "传统、教育、精神指引、盟约",
+    "reversed": "反叛、打破常规、教条主义、疏离"
+  },
+
+  {
+    "id": "RWS_Tarot_06_Lovers",
+    "name": "恋人 (The Lovers)",
+    "description": "天使祝福下的男女，背后有生命树。",
+    "upright": "选择、爱、和谐、价值观一致",
+    "reversed": "关系失调、错误的决定、逃避责任"
+  },
+
+  {
+    "id": "RWS_Tarot_07_Chariot",
+    "name": "战车 (The Chariot)",
+    "description": "战士驾驭黑白狮鹫/斯芬克斯。",
+    "upright": "意志、胜利、自律、克服障碍",
+    "reversed": "失控、方向不明、挫败、好战"
+  },
+
+  {
+    "id": "RWS_Tarot_08_Strength",
+    "name": "力量 (Strength)",
+    "description": "女性温柔地合上狮子的嘴巴。",
+    "upright": "勇气、柔韧、自控、内心力量",
+    "reversed": "软弱、恐惧、自疑、滥用权力"
+  },
+
+  {
+    "id": "RWS_Tarot_09_Hermit",
+    "name": "隐士 (The Hermit)",
+    "description": "老人提着灯在山顶前行。",
+    "upright": "内省、孤独、寻求真理、导师",
+    "reversed": "孤独感、孤立、偏执、重回社会"
+  },
+
+  {
+    "id": "RWS_Tarot_10_Wheel_of_Fortune",
+    "name": "命运之轮 (Wheel of Fortune)",
+    "description": "轮盘上有各种符号，四角的圣兽在阅读。",
+    "upright": "机遇、转变、循环、命运",
+    "reversed": "坏运气、阻碍、拒绝改变、停滞"
+  },
+
+  {
+    "id": "RWS_Tarot_11_Justice",
+    "name": "正义 (Justice)",
+    "description": "持剑与天平，坐于石柱前。",
+    "upright": "公平、真相、法律、因果报应",
+    "reversed": "不公、逃避法律、偏见、不诚实"
+  },
+
+  {
+    "id": "RWS_Tarot_12_Hanged_Man",
+    "name": "倒吊人 (The Hanged Man)",
+    "description": "倒吊在十字木上的青年，头后有光圈。",
+    "upright": "换位思考、牺牲、等待、启迪",
+    "reversed": "徒劳、挣扎、物质主义、停滞不前"
+  },
+
+  {
+    "id": "RWS_Tarot_13_Death",
+    "name": "死神 (Death)",
+    "description": "骷髅骑士策马而过，国王倒地。",
+    "upright": "结束、转化、彻底改变、新生",
+    "reversed": "停滞、抗拒改变、恐惧死亡、复活"
+  },
+
+  {
+    "id": "RWS_Tarot_14_Temperance",
+    "name": "节制 (Temperance)",
+    "description": "天使在两杯中倾倒圣水，一脚在水中。",
+    "upright": "平衡、适度、融合、耐心",
+    "reversed": "失衡、过度、缺乏目标、沟通不良"
+  },
+
+  {
+    "id": "RWS_Tarot_15_Devil",
+    "name": "恶魔 (The Devil)",
+    "description": "山羊头恶魔，下方锁着男女。",
+    "upright": "欲望、束缚、物质主义、成瘾",
+    "reversed": "觉醒、解脱、打破束缚、自我反思"
+  },
+
+  {
+    "id": "RWS_Tarot_16_Tower",
+    "name": "高塔 (The Tower)",
+    "description": "闪电击中塔顶，两人坠落。",
+    "upright": "突变、毁灭、觉醒、灾难",
+    "reversed": "逃过一劫、恐惧改变、由于傲慢受阻"
+  },
+
+  {
+    "id": "RWS_Tarot_17_Star",
+    "name": "星星 (The Star)",
+    "description": "裸女在星空下将水倒入池塘与大地。",
+    "upright": "希望、灵感、宁静、疗愈",
+    "reversed": "失望、悲观、缺乏灵感、自我怀疑"
+  },
+
+  {
+    "id": "RWS_Tarot_18_Moon",
+    "name": "月亮 (The Moon)",
+    "description": "龙虾爬出水面，犬狼吠月。",
+    "upright": "不安、幻觉、直觉、潜意识",
+    "reversed": "揭穿谎言、恐惧消散、困惑解除"
+  },
+
+  {
+    "id": "RWS_Tarot_19_Sun",
+    "name": "太阳 (The Sun)",
+    "description": "孩童骑白马在向日葵前欢笑。",
+    "upright": "成功、快乐、活力、自信",
+    "reversed": "假装快乐、挫折、延迟的成功、黯淡"
+  },
+
+  {
+    "id": "RWS_Tarot_20_Judgement",
+    "name": "审判 (Judgement)",
+    "description": "天使吹响号角，死者复活。",
+    "upright": "觉醒、使命、总结、重获新生",
+    "reversed": "执迷不悟、自我怀疑、错过机会"
+  },
+
+  {
+    "id": "RWS_Tarot_21_World",
+    "name": "世界 (The World)",
+    "description": "桂冠环绕的舞者，四周有四圣兽。",
+    "upright": "圆满、达成、旅行、自由",
+    "reversed": "未竟之志、停滞、缺乏完整性、逃避"
+  },
+
+  {
+    "id": "Wands01",
+    "name": "权杖一",
+    "description": "云中伸出的手紧握发芽权杖。",
+    "upright": "新计划、行动力、灵感",
+    "reversed": "受阻、延迟、缺乏动力"
+  },
+
+  {
+    "id": "Wands02",
+    "name": "权杖二",
+    "description": "男子手持地球仪望向远方大海。",
+    "upright": "规划、抉择、跨越、愿景",
+    "reversed": "犹豫、计划失败、局限"
+  },
+
+  {
+    "id": "Wands03",
+    "name": "权杖三",
+    "description": "男子背对立于山巅，看船远航。",
+    "upright": "扩张、远瞻、合作、贸易",
+    "reversed": "延误、失望、无法沟通"
+  },
+
+  {
+    "id": "Wands04",
+    "name": "权杖四",
+    "description": "四根权杖支撑起花环，后有城堡。",
+    "upright": "稳固、庆典、和谐、归属感",
+    "reversed": "不稳、缺乏安全感、家庭不和"
+  },
+
+  {
+    "id": "Wands05",
+    "name": "权杖五",
+    "description": "五个年轻人持棍混战。",
+    "upright": "竞争、冲突、挑战、混乱",
+    "reversed": "和解、逃避竞争、终结争端"
+  },
+
+  {
+    "id": "Wands06",
+    "name": "权杖六",
+    "description": "戴桂冠者骑马接受众人簇拥。",
+    "upright": "胜利、载誉而归、自信、公开认可",
+    "reversed": "落后、失败、自卑、延迟的奖励"
+  },
+
+  {
+    "id": "Wands07",
+    "name": "权杖七",
+    "description": "男子立于高处抵抗下方六根权杖。",
+    "upright": "守御、孤军奋战、坚持立场",
+    "reversed": "退缩、力不从心、受威胁"
+  },
+
+  {
+    "id": "Wands08",
+    "name": "权杖八",
+    "description": "八根权杖齐整斜飞向下。",
+    "upright": "迅速、讯息、进展、方向明确",
+    "reversed": "延误、方向错误、仓促行事"
+  },
+
+  {
+    "id": "Wands09",
+    "name": "权杖九",
+    "description": "头上缠绷带者持杖警惕。",
+    "upright": "防备、坚持、最后冲刺、防御",
+    "reversed": "精疲力竭、防线崩溃、抗拒"
+  },
+
+  {
+    "id": "Wands10",
+    "name": "权杖十",
+    "description": "男子吃力抱十根木杖走向城镇。",
+    "upright": "压力、重担、成就背后的代价",
+    "reversed": "卸下重担、崩溃、逃避责任"
+  },
+
+  {
+    "id": "Wands11",
+    "name": "权杖侍从",
+    "description": "站在沙漠中看权杖发芽的青年。",
+    "upright": "热情、消息、探索、新发现",
+    "reversed": "坏消息、鲁莽、缺乏信心"
+  },
+
+  {
+    "id": "Wands12",
+    "name": "权杖骑士",
+    "description": "骑马跃起的骑士，身穿火蜥蜴袍。",
+    "upright": "鲁莽、行动、激情、离去",
+    "reversed": "受挫、争执、中断、暴躁"
+  },
+
+  {
+    "id": "Wands13",
+    "name": "权杖皇后",
+    "description": "手持向日葵，黑猫坐于座前。",
+    "upright": "自信、魅力、热情、独立",
+    "reversed": "嫉妒、暴躁、自负、冷漠"
+  },
+
+  {
+    "id": "Wands14",
+    "name": "权杖国王",
+    "description": "正襟危坐，披火蜥蜴长袍。",
+    "upright": "领导力、远见、果断、事业心",
+    "reversed": "专横、固执、缺乏远见"
+  },
+
+  {
+    "id": "Cups01",
+    "name": "圣杯一",
+    "description": "云中手托溢出五道圣水的杯子。",
+    "upright": "情感满溢、新恋情、慈悲、丰盈",
+    "reversed": "情感干涸、压抑、假爱、失落"
+  },
+
+  {
+    "id": "Cups02",
+    "name": "圣杯二",
+    "description": "男女举杯对视，上方有赫尔墨斯之杖。",
+    "upright": "结合、平等恋爱、友谊、和谐",
+    "reversed": "分裂、误解、关系不平衡"
+  },
+
+  {
+    "id": "Cups03",
+    "name": "圣杯三",
+    "description": "三位女性举杯欢庆。",
+    "upright": "社交、共享、庆祝、丰收",
+    "reversed": "三角关系、纵欲、社交圈破裂"
+  },
+
+  {
+    "id": "Cups04",
+    "name": "圣杯四",
+    "description": "树下男子面对三杯不顾云中伸出的第四杯。",
+    "upright": "厌倦、退缩、错过、冥想",
+    "reversed": "新方向、觉醒、重新投入"
+  },
+
+  {
+    "id": "Cups05",
+    "name": "圣杯五",
+    "description": "披黑袍者看倒掉的三杯，背对立着的两杯。",
+    "upright": "悲伤、关注失去、悔恨、孤独",
+    "reversed": "走出阴影、希望重现、接受现实"
+  },
+
+  {
+    "id": "Cups06",
+    "name": "圣杯六",
+    "description": "男孩送给女孩盛满鲜花的圣杯。",
+    "upright": "童年、怀旧、赠与、安全感",
+    "reversed": "活在过去、不切实际、揭开往事"
+  },
+
+  {
+    "id": "Cups07",
+    "name": "圣杯七",
+    "description": "云中七杯盛满各种幻象。",
+    "upright": "选择、幻觉、贪婪、迷茫",
+    "reversed": "清醒、下定决心、看清现实"
+  },
+
+  {
+    "id": "Cups08",
+    "name": "圣杯八",
+    "description": "月光下男子弃八杯而远走山林。",
+    "upright": "追寻、放弃、离去、寻求真理",
+    "reversed": "犹豫不决、无力离开、害怕未知"
+  },
+
+  {
+    "id": "Cups09",
+    "name": "圣杯九",
+    "description": "胖男子坐于架起九杯的台前，神态满足。",
+    "upright": "满足、美梦成真、享乐、感官愉悦",
+    "reversed": "不满足、过度挥霍、自负、虚情"
+  },
+
+  {
+    "id": "Cups10",
+    "name": "圣杯十",
+    "description": "彩虹下的一家人，十杯凌空。",
+    "upright": "家庭幸福、圆满、归属感、喜悦",
+    "reversed": "家庭纷争、疏离、失去和谐"
+  },
+
+  {
+    "id": "Cups11",
+    "name": "圣杯侍从",
+    "description": "持杯青年，杯中有一条鱼。",
+    "upright": "灵感、新感觉、好奇、温顺",
+    "reversed": "情绪化、沉溺、虚假承诺"
+  },
+
+  {
+    "id": "Cups12",
+    "name": "圣杯骑士",
+    "description": "白马上的骑士平举杯子缓缓前行。",
+    "upright": "浪漫、邀请、调情、追求理想",
+    "reversed": "不诚实、逃避现实、情感欺骗"
+  },
+
+  {
+    "id": "Cups13",
+    "name": "圣杯皇后",
+    "description": "端坐海边凝视华丽的圣杯。",
+    "upright": "温柔、直觉、母性、同理心",
+    "reversed": "情绪不稳定、过度依赖、猜忌"
+  },
+
+  {
+    "id": "Cups14",
+    "name": "圣杯国王",
+    "description": "坐在波涛汹涌海面的王座上。",
+    "upright": "慈爱、掌控情绪、外交、宽容",
+    "reversed": "冷酷、操纵情感、虚伪"
+  },
+
+  {
+    "id": "Swords01",
+    "name": "宝剑一",
+    "description": "云中手握直立宝剑，剑尖穿过皇冠。",
+    "upright": "突破、清晰、决断、正义",
+    "reversed": "混乱、暴力、失败、不公"
+  },
+
+  {
+    "id": "Swords02",
+    "name": "宝剑二",
+    "description": "蒙眼女子双手交叉持剑在海边平衡。",
+    "upright": "僵局、逃避、冷战、抉择艰难",
+    "reversed": "动荡、揭开真相、被迫行动"
+  },
+
+  {
+    "id": "Swords03",
+    "name": "宝剑三",
+    "description": "心形被三把宝剑刺穿，背景阴雨。",
+    "upright": "伤心、背叛、分离、精神创伤",
+    "reversed": "疗愈、压抑痛苦、走出阴霾"
+  },
+
+  {
+    "id": "Swords04",
+    "name": "宝剑四",
+    "description": "男子躺在石棺上休息，壁上有三剑。",
+    "upright": "休息、退却、疗养、沉思",
+    "reversed": "重返社会、焦躁、精疲力竭"
+  },
+
+  {
+    "id": "Swords05",
+    "name": "宝剑五",
+    "description": "得胜者持三剑，败者在背景中离去。",
+    "upright": "卑劣的胜利、冲突、自私、屈辱",
+    "reversed": "休战、纠纷解决、后悔"
+  },
+
+  {
+    "id": "Swords06",
+    "name": "宝剑六",
+    "description": "渡工载两人六剑划向对岸。",
+    "upright": "过渡、好转、旅行、理智逃避",
+    "reversed": "困境重复、计划取消、受阻"
+  },
+
+  {
+    "id": "Swords07",
+    "name": "宝剑七",
+    "description": "男子偷走五剑，另两剑留在营地。",
+    "upright": "欺骗、逃避、计谋、独处",
+    "reversed": "揭发、回归、反思手段"
+  },
+
+  {
+    "id": "Swords08",
+    "name": "宝剑八",
+    "description": "蒙眼女子被困八剑环绕的泥泞中。",
+    "upright": "受限、无力感、思想禁锢、孤立",
+    "reversed": "解脱、认清现状、新视角"
+  },
+
+  {
+    "id": "Swords09",
+    "name": "宝剑九",
+    "description": "床上掩面而泣，背景九剑横陈。",
+    "upright": "焦虑、噩梦、失眠、深度抑郁",
+    "reversed": "希望出现、心理重建、真相大白"
+  },
+
+  {
+    "id": "Swords10",
+    "name": "宝剑十",
+    "description": "人倒地背插十剑，天边微光。",
+    "upright": "毁灭、彻底结束、背叛、触底",
+    "reversed": "起死回生、短暂好转、避免更糟"
+  },
+
+  {
+    "id": "Swords11",
+    "name": "宝剑侍从",
+    "description": "风中持剑张望的年轻人。",
+    "upright": "警觉、情报、好奇心、批评",
+    "reversed": "散布流言、虚伪、口舌之争"
+  },
+
+  {
+    "id": "Swords12",
+    "name": "宝剑骑士",
+    "description": "策马狂奔、拔剑冲锋。",
+    "upright": "急躁、决断、挑战、迅速",
+    "reversed": "鲁莽、散漫、自大、导致灾难"
+  },
+
+  {
+    "id": "Swords13",
+    "name": "宝剑皇后",
+    "description": "侧坐持剑伸出一只手，表情理智。",
+    "upright": "独立、理智、诚实、犀利",
+    "reversed": "尖酸、残忍、偏见、狭隘"
+  },
+
+  {
+    "id": "Swords14",
+    "name": "宝剑国王",
+    "description": "持剑正面坐，神态威严冷酷。",
+    "upright": "权威、逻辑、专业意见、公正",
+    "reversed": "专制、残忍、滥用才智"
+  },
+
+  {
+    "id": "Pents01",
+    "name": "星币一",
+    "description": "云中手托一枚硕大的星币，下方花园。",
+    "upright": "物质机会、财运、稳固开始、繁荣",
+    "reversed": "破财、贪婪、虚度光阴"
+  },
+
+  {
+    "id": "Pents02",
+    "name": "星币二",
+    "description": "杂耍者在海浪前平衡两枚星币。",
+    "upright": "平衡、忙碌、适应力、变化",
+    "reversed": "失衡、混乱、财务危机"
+  },
+
+  {
+    "id": "Pents03",
+    "name": "星币三",
+    "description": "雕刻匠与教士在教堂讨论。",
+    "upright": "团队、技能、专业、初步成果",
+    "reversed": "缺乏合作、平庸、不思进取"
+  },
+
+  {
+    "id": "Pents04",
+    "name": "星币四",
+    "description": "男子紧紧抱住星币，脚踩星币。",
+    "upright": "守财、保守、安全感、吝啬",
+    "reversed": "浪费、慷慨、打破局限"
+  },
+
+  {
+    "id": "Pents05",
+    "name": "星币五",
+    "description": "风雪中两名乞丐经过教堂窗下。",
+    "upright": "贫困、困境、被忽视、健康受损",
+    "reversed": "转机、改善、找到支持"
+  },
+
+  {
+    "id": "Pents06",
+    "name": "星币六",
+    "description": "富人施舍金币给穷人，手拿天平。",
+    "upright": "慷慨、分配、慈善、得失平衡",
+    "reversed": "伪善、负债、不平等的分配"
+  },
+
+  {
+    "id": "Pents07",
+    "name": "星币七",
+    "description": "农人持锄看藤上的星币，思索成果。",
+    "upright": "耐心、评估、等待、阶段性成果",
+    "reversed": "急躁、不满足、焦虑、投机失败"
+  },
+
+  {
+    "id": "Pents08",
+    "name": "星币八",
+    "description": "工匠埋头雕刻星币。",
+    "upright": "勤奋、技能提升、专注、工匠精神",
+    "reversed": "平庸、偷懒、野心过大"
+  },
+
+  {
+    "id": "Pents09",
+    "name": "星币九",
+    "description": "衣着华丽女性在庄园中，手托猎鹰。",
+    "upright": "独立、富足、自律、成功",
+    "reversed": "虚荣、过度开销、孤独、不安全"
+  },
+
+  {
+    "id": "Pents10",
+    "name": "星币十",
+    "description": "三代同堂，背景满布星币。",
+    "upright": "家族遗产、长期稳定、传统、圆满",
+    "reversed": "家庭破产、遗产纠纷、短视"
+  },
+
+  {
+    "id": "Pents11",
+    "name": "星币侍从",
+    "description": "草地上凝视星币的青年。",
+    "upright": "求知、新目标、勤勉、好消息",
+    "reversed": "奢侈、缺乏眼光、学习态度差"
+  },
+
+  {
+    "id": "Pents12",
+    "name": "星币骑士",
+    "description": "稳立在田野上的黑马骑士。",
+    "upright": "可靠、踏实、负责、缓慢进展",
+    "reversed": "停滞、固执、工作狂、枯燥"
+  },
+
+  {
+    "id": "Pents13",
+    "name": "星币皇后",
+    "description": "坐于繁花王座，慈祥看手中星币。",
+    "upright": "务实、母性、感官享受、丰盈",
+    "reversed": "猜忌、自我中心、生活失序"
+  },
+
+  {
+    "id": "Pents14",
+    "name": "星币国王",
+    "description": "被葡萄藤环绕，脚下是牛头装饰。",
+    "upright": "成功、稳固、财务大师、领导",
+    "reversed": "贪婪、唯利是图、固执"
+  }
+]

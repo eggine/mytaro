@@ -2,9 +2,9 @@
 import { ref, onMounted, nextTick, onUnmounted, computed, defineProps } from 'vue'
 import { getUUID } from '@/utils/index'
 import btnRestart from './btn-restart.vue'
-import groupedCards from '@/assets/json/groupedCards.json'
+import cardsJson from '@/assets/json/cards.json'
 
-console.log(groupedCards)
+console.log(cardsJson)
 const emit = defineEmits(['selectCard'])
 const props = defineProps({
   selectedSubject: {
@@ -12,8 +12,6 @@ const props = defineProps({
     default: () => ({})
   }
 })
-const subjectId = props.selectedSubject.id
-  const subjectCards = groupedCards[subjectId]
 // 响应式卡片配置
 const totalCardNum = props.selectedSubject.cardNum
 // 基础卡片尺寸 (rem为单位，适配所有屏幕)
@@ -40,12 +38,12 @@ const initCardList = () => {
     randomRotate: (Math.random() - 0.5) * 4, // 随机±2度旋转，错落有致
     // ✨ 新增：核心-给每个卡片生成递增的延迟时间，实现依次出场 i越大延迟越长
     delayMs: i * animateDelayStep,
-    id: subjectCards[i].id,
-    name: subjectCards[i].name,
-    description: subjectCards[i].description,
-    upright: subjectCards[i].upright,
-    reversed: subjectCards[i].reversed,
-    img: '/data/MinorArcana/' + subjectId + '/' + subjectCards[i].id + '.jpg'
+    id: cardsJson[i].id,
+    name: cardsJson[i].name,
+    description: cardsJson[i].description,
+    upright: cardsJson[i].upright,
+    reversed: cardsJson[i].reversed,
+    img: '/data/cards/' + cardsJson[i].id + '.jpg'
   }))
   const totalDelayMs = (totalCardNum - 1) * animateDelayStep
   setTimeout(() => {

@@ -111,7 +111,7 @@ function handleRestart() {
     border-radius: 4px !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border: 2px solid #868686;
-    background: radial-gradient(circle, #a53d4e, #e94560);
+    /* background: radial-gradient(circle, #a53d4e, #e94560); */
     position: relative;
     flex-shrink: 0;
     margin-bottom: 0.02rem;
