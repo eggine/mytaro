@@ -1,0 +1,66 @@
+[
+  {
+    "kind": "感情",
+    "details": [
+      {
+        "descrip": "探索恋人复合可能性",
+        "spread": 0
+      },
+      {
+        "descrip": "剖析婚姻关系及走向",
+        "spread": 3
+      },
+      {
+        "descrip": "分析现任恋人是否合适",
+        "spread": 0
+      },
+      {
+        "descrip": "分析适合我的下一任伴侣",
+        "spread": 0
+      }
+    ]
+  },
+  {
+    "kind": "事业",
+    "details": [
+      {
+        "descrip": "是否应该跳槽",
+        "spread": 1
+      },
+      {
+        "descrip": "现在的行业与我的匹配度",
+        "spread": 1
+      }
+    ]
+  },
+  {
+    "kind": "学业",
+    "details": [
+      {
+        "descrip": "能不能上清华",
+        "spread": 2
+      }
+    ]
+  },
+  {
+    "kind": "通用",
+    "details": [
+      {
+        "descrip": "时间流",
+        "spread": 0
+      },
+      {
+        "descrip": "二选一",
+        "spread": 1
+      },
+      {
+        "descrip": "三选一",
+        "spread": 2
+      },
+      {
+        "descrip": "一对一关系中双方的内心想法",
+        "spread": 2
+      }
+    ]
+  }
+]
