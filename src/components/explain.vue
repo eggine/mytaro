@@ -1,14 +1,21 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineEmits, inject, computed } from 'vue'
 import btnRestart from './btn-restart.vue'
+import spread from '@/assets/json/spread.json'
 const emit = defineEmits(['restart'])
 
 const props = defineProps({
+    selectedSubject: {
+        type: Object,
+        default: () => ({})
+    },
     selectedCardList: {
         type: Array,
         default: () => []
     }
 })
+const slots = spread[props.selectedSubject.spread].slots
+console.log(slots)
 const currentCard = computed(() => {
     return props.selectedCardList.find(card => card.id === currentCardId.value) || {}
 })
@@ -18,16 +25,16 @@ const currentCardId = ref('')
 const cardRows = computed(() => {
     const rows = []
     let currentIndex = 0 // 记录当前处理到的牌的索引
-    let rowNum = 1 // 记录当前是第几行（第n行放n张）
     const selectedCardList = props.selectedCardList
+    const CARDS_PER_ROW = 3 // 每行固定放三张
+    
     // 循环分组，直到所有牌都被分配
     while (currentIndex < selectedCardList.length) {
-        // 截取当前行需要的牌：从currentIndex开始，截取rowNum张
-        const rowCards = selectedCardList.slice(currentIndex, currentIndex + rowNum)
+        // 截取当前行需要的牌：从currentIndex开始，截取CARDS_PER_ROW张
+        const rowCards = selectedCardList.slice(currentIndex, currentIndex + CARDS_PER_ROW)
         rows.push(rowCards)
-        // 更新索引和行数
-        currentIndex += rowNum
-        rowNum += 1
+        // 更新索引
+        currentIndex += CARDS_PER_ROW
     }
 
     return rows
@@ -51,8 +58,12 @@ function handleRestart() {
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
-                <div class="card" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
-                    <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
+                 <div class="card-item" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
+                <div class="card"  >
+                    <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;" :style="{ transform: card.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }"/>
+                    
+                </div>
+                <div class="card-text">{{ slots[cardIndex] }}</div>
                 </div>
             </div>
         </div>
@@ -69,7 +80,7 @@ function handleRestart() {
                     <div :class="{ 'active-box': currentCardId }">
                         <div class="card-name">{{ currentCard.name }}</div>
                         <div class="card">
-                            <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
+                            <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;" :style="{ transform: currentCard.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }"/>
                         </div>
                     </div>
                 </div>
@@ -98,6 +109,18 @@ function handleRestart() {
     /* 行之间的间距 */
     justify-content: flex-start;
     /* 靠左对齐 */
+}
+
+.card-item {
+    width: 1.6rem;
+    position: relative;
+    height: 3.4rem;
+}
+
+.card-text {
+    color: #fff;
+    text-align: center;
+    font-size: 0.2rem;
 }
 
 .card {

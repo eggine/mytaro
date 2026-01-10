@@ -32,7 +32,7 @@ const handleSelectCard = (cards) => {
     <Subject v-if="flow === 'subject'" @selectSubject="handleSelectSubject" />
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
-    <Explain v-if="flow === 'explain'" :selectedCardList="selectedCardList" />
+    <Explain v-if="flow === 'explain'" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" />
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import { ref, onMounted, nextTick, onUnmounted, computed, defineProps } from 'vu
 import { getUUID } from '@/utils/index'
 import btnRestart from './btn-restart.vue'
 import cardsJson from '@/assets/json/cards.json'
+import spread from '@/assets/json/spread.json'
 
 console.log(cardsJson)
 const emit = defineEmits(['selectCard'])
@@ -13,7 +14,8 @@ const props = defineProps({
   }
 })
 // 响应式卡片配置
-const totalCardNum = props.selectedSubject.cardNum
+const cardNum = spread[props.selectedSubject.spread].cardNum
+const totalCardNum = cardNum
 // 基础卡片尺寸 (rem为单位，适配所有屏幕)
 const cardBaseW = ref(0.8)  // 卡片宽度
 const cardBaseH = ref(1.2)  // 卡片高度
@@ -28,7 +30,8 @@ const rowCardCount = ref(0)
 const isAnimating = ref(false)
 // ✨ 新增：依次出场的动画延迟间隔(毫秒)，18ms是最佳值，78张卡片全部出场约1.4秒，不拖沓不仓促
 const animateDelayStep = 18
-const cardSpreadNum = ref(props.selectedSubject.cardSpread)
+const cardSpread = spread[props.selectedSubject.spread].slots.length
+const cardSpreadNum = ref(cardSpread)
 const selectedCardList = ref([])
 
 // 初始化卡片数组
@@ -43,7 +46,8 @@ const initCardList = () => {
     description: cardsJson[i].description,
     upright: cardsJson[i].upright,
     reversed: cardsJson[i].reversed,
-    img: '/data/cards/' + cardsJson[i].id + '.jpg'
+    img: '/data/cards/' + cardsJson[i].id + '.jpg',
+    isReversed: Math.random() > 0.5
   }))
   const totalDelayMs = (totalCardNum - 1) * animateDelayStep
   setTimeout(() => {
@@ -131,7 +135,7 @@ onUnmounted(() => {
           <img src="/data/back.jpg" width="100%" height="100%" style="width: 100%; height: 100%;" />
         </div>
         <div class="card-face card-front">
-           <img :src="item.img" width="100%" height="100%" style="width: 100%; height: 100%;" />
+           <img :src="item.img" width="100%" height="100%" style="width: 100%; height: 100%;" :style="{ transform: item.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
         </div>
         </div>
       </div>

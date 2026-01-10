@@ -1,51 +1,18 @@
 <script setup>
 import { ref, onMounted, nextTick, onUnmounted, computed } from 'vue'
 import { getUUID } from '@/utils/index'
+import queries from '@/assets/json/queries.json'
+import cardsJson from '@/assets/json/cards.json'
+
 const emit = defineEmits(['selectSubject'])
 
-const subjectTypeList = ref([
-    {
-        id: 1,
-        name: '感情',
-        children: [
-            {
-                id: 11,
-                name: '感情-1',
-                cardNum: 78,
-                cardSpread: 3
-            },
-            {
-                id: 12,
-                name: '感情-2',
-                cardNum: 78,
-                cardSpread: 6
-            },
-        ]
-    },
-    {
-        id: 2,
-        name: '事业',
-        children: [
-            {
-                id: 21,
-                name: '事业-1',
-                cardNum: 78,
-                cardSpread: 3
-            },
-            {
-                id: 22,
-                name: '事业-2',
-                cardNum: 78,
-                cardSpread: 6
-            }
-        ]
-    }
-])
+const subjectTypeList = ref(queries)
 const selectTypeIndex = ref(0)
 const isTypeSelect = ref(false)
 const typeHide = ref(true)
 const selectSubjectIndex = ref(0)
 const isSubjectSelect = ref(false)
+const imgs = ref(cardsJson)
 
 const handleTypeClick = (index) => {
     selectTypeIndex.value = index
@@ -57,7 +24,7 @@ const handleTypeClick = (index) => {
 const handleSubjectClick = (index) => {
     selectSubjectIndex.value = index
     isSubjectSelect.value = true
-    emit('selectSubject', subjectTypeList.value[selectTypeIndex.value].children[index])
+    emit('selectSubject', subjectTypeList.value[selectTypeIndex.value].details[index])
 }
 </script>
 
@@ -68,25 +35,27 @@ const handleSubjectClick = (index) => {
                 <div class="title text-[0.6rem] mb-[4rem] text-[#fff] text-center">请选择题目类型</div>
                 <div v-for="(item, index) in subjectTypeList" :key="item.id" class="text-[#fff] text-[0.8rem] td"
                     :class="{ 'click': selectTypeIndex === index && isTypeSelect }" @click="handleTypeClick(index)">
-                    {{ item.name }}
+                    {{ item.kind }}
                 </div>
             </div>
 
             <div v-show="!typeHide">
                 <div class="title text-[0.6rem] mb-[4rem] text-[#fff] flex items-center justify-center">请选择题目</div>
-                <div class="title-tr" v-for="(item, index) in subjectTypeList[selectTypeIndex].children" :key="item.id"
+                <div class="title-tr" v-for="(item, index) in subjectTypeList[selectTypeIndex].details" :key="item.id"
                     :class="{ 'click': selectSubjectIndex === index && isSubjectSelect }"
                     @click="handleSubjectClick(index)">
-                    {{ (index + 1) }}、{{ item.name }}
+                    {{ (index + 1) }}、{{ item.descrip }}
                 </div>
             </div>
         </div>
+
+        <img v-for="item in imgs" :key="item.id" :src="'/data/cards/' + item.id + '.jpg'"  style="width: 250px; height: 430px;display: none;" />
     </div>
 </template>
 
 <style scoped>
 .subject-box {
-    padding: 1rem;
+    padding: 0.8rem 1rem;
 }
 
 .subject-type.fade {
@@ -105,7 +74,7 @@ const handleSubjectClick = (index) => {
 }
 
 .title {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .td {
@@ -127,7 +96,7 @@ const handleSubjectClick = (index) => {
     border: 1px solid #fff;
     border-radius: 0.2rem;
     margin: 0.2rem;
-    text-align: center;
+    text-align: left;
     color: #fff;
     font-size: 0.8rem;
 }

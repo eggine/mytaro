@@ -1,7 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineEmits, inject } from 'vue'
 import btnRestart from './btn-restart.vue'
+import spread from '@/assets/json/spread.json'
 
+console.log(spread)
 const emit = defineEmits(['shuffleEnd'])
 const props = defineProps({
     selectedSubject: {
@@ -11,7 +13,8 @@ const props = defineProps({
 })
 const selectedSubject = inject('selectedSubject')
 console.log(props.selectedSubject)
-const totalCardNum = ref(props.selectedSubject.cardNum)
+const cardNum = spread[props.selectedSubject.spread].cardNum
+const totalCardNum = ref(cardNum)
 const cards = ref([])
 const isShuffled = ref(false)
 let pressTimer = null;
