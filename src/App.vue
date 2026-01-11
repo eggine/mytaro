@@ -4,10 +4,16 @@ import Subject from './components/subject.vue'
 import Shuffle from './components/shuffle.vue'
 import CardSelect from './components/card-select.vue'
 import Explain from './components/explain.vue'
+import Analysis from './components/analysis.vue'
 
 const flow = ref('subject')
 const selectedSubject = ref({})
 const selectedCardList = ref([])
+const isShowAnalysis = ref(false)
+const analysisCard = ref({})
+const explainRef = ref()
+const isRead = ref(false)
+const analysisData = ref({})
 
 const handleSelectSubject = (subject) => {
   console.log(subject)
@@ -25,6 +31,17 @@ const handleSelectCard = (cards) => {
   selectedCardList.value = cards
   flow.value = 'explain'
 }
+
+const handleAnalysis = (card) => {
+  console.log(card)
+  analysisCard.value = card
+  isShowAnalysis.value = true
+}
+
+function handleRead(data) {
+  isRead.value = true
+  analysisData.value = data
+}
 </script>
 
 <template>
@@ -32,7 +49,8 @@ const handleSelectCard = (cards) => {
     <Subject v-if="flow === 'subject'" @selectSubject="handleSelectSubject" />
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
-    <Explain v-if="flow === 'explain'" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" />
+    <Explain ref="explainRef" v-if="flow === 'explain'" v-show="!isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :isRead="isRead" @handleAnalysis="handleAnalysis" />
+    <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" @handleRead="handleRead" />
   </div>
 </template>
 

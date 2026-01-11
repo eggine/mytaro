@@ -47,7 +47,8 @@ const initCardList = () => {
     upright: cardsJson[i].upright,
     reversed: cardsJson[i].reversed,
     img: '/data/cards/' + cardsJson[i].id + '.jpg',
-    isReversed: Math.random() > 0.5
+    isReversed: Math.random() > 0.5,
+    isRead: false
   }))
   const totalDelayMs = (totalCardNum - 1) * animateDelayStep
   setTimeout(() => {

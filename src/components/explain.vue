@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted, onUnmounted, defineEmits, inject, computed } from 'vue'
+import { ref, onMounted, onUnmounted, defineEmits, inject, computed, defineExpose } from 'vue'
 import btnRestart from './btn-restart.vue'
 import spread from '@/assets/json/spread.json'
-const emit = defineEmits(['restart'])
+const emit = defineEmits(['restart', 'handleAnalysis'])
 
 const props = defineProps({
     selectedSubject: {
@@ -12,6 +12,10 @@ const props = defineProps({
     selectedCardList: {
         type: Array,
         default: () => []
+    },
+    isRead: {
+        type: Boolean,
+        default: false
     }
 })
 const slots = spread[props.selectedSubject.spread].slots
@@ -27,7 +31,7 @@ const cardRows = computed(() => {
     let currentIndex = 0 // 记录当前处理到的牌的索引
     const selectedCardList = props.selectedCardList
     const CARDS_PER_ROW = 3 // 每行固定放三张
-    
+
     // 循环分组，直到所有牌都被分配
     while (currentIndex < selectedCardList.length) {
         // 截取当前行需要的牌：从currentIndex开始，截取CARDS_PER_ROW张
@@ -50,20 +54,25 @@ function handleRestart() {
     currentCardId.value = ''
     emit('restart')
 }
+
+function handleExplain() {
+    emit('handleAnalysis')
+}
 </script>
 
 <template>
     <div class="h-full w-full">
         <btnRestart />
+        <div class="card-btn-box" @click="handleExplain">{{ isRead ? '查看解读' : '解读' }}</div>
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
-                 <div class="card-item" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
-                <div class="card"  >
-                    <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;" :style="{ transform: card.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }"/>
-                    
-                </div>
-                <div class="card-text">{{ slots[cardIndex] }}</div>
+                <div class="card-item" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
+                    <div class="card">
+                        <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;"
+                            :style="{ transform: card.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
+                    </div>
+                    <div class="card-text">{{ slots[cardIndex] }}</div>
                 </div>
             </div>
         </div>
@@ -80,7 +89,8 @@ function handleRestart() {
                     <div :class="{ 'active-box': currentCardId }">
                         <div class="card-name">{{ currentCard.name }}</div>
                         <div class="card">
-                            <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;" :style="{ transform: currentCard.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }"/>
+                            <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;"
+                                :style="{ transform: currentCard.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
                         </div>
                     </div>
                 </div>
@@ -114,7 +124,7 @@ function handleRestart() {
 .card-item {
     width: 1.6rem;
     position: relative;
-    height: 3.4rem;
+    height: 3.5rem;
 }
 
 .card-text {
@@ -242,5 +252,22 @@ function handleRestart() {
         transform: translateX(-50%);
         padding-right: 0;
     }
+}
+
+.card-btn-box {
+    font-size: 0.2rem;
+    color: #fff;
+    border: 1px solid #fff;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    padding: 0 0.6rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 0.1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>
