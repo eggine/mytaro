@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted, defineEmits, inject } from 'vue'
+import { ref, onMounted, onUnmounted, defineEmits, inject, nextTick } from 'vue'
 import btnRestart from './btn-restart.vue'
 import spread from '@/assets/json/spread.json'
 
@@ -11,369 +11,314 @@ const props = defineProps({
         default: () => ({})
     }
 })
+
 const selectedSubject = inject('selectedSubject')
 console.log(props.selectedSubject)
 const cardNum = spread[props.selectedSubject.spread].cardNum
 const totalCardNum = ref(cardNum)
 const cards = ref([])
 const isShuffled = ref(false)
-let pressTimer = null;
-let pressDuration = 500;
-let isLongPress = ref(false);
-let animationFrameId = null;
-let buttonCenterX = 0;
-let buttonCenterY = 0;
+
+// 性能优化：减少状态变量
+let pressTimer = null
+const pressDuration = 500
+let isLongPress = ref(false)
+let animationFrameId = null
+
+// 缓存计算值
+let remInPixels = 0
+let cardWidthPx = 0
+let cardHeightPx = 0
+let buttonCenterX = 0
+let buttonCenterY = 0
 
 // 屏幕尺寸
-const screenWidth = ref(window.innerWidth);
-const screenHeight = ref(window.innerHeight);
+const screenWidth = ref(window.innerWidth)
+const screenHeight = ref(window.innerHeight)
 
-// 按钮的尺寸（rem单位转换为px）
-const buttonSizeRem = 2.4;
-const cardWidthRem = 0.8;
-const cardHeightRem = 1.6;
+// 按钮尺寸（使用rem，后续转换为px）
+const buttonSizeRem = 2.4
+const cardWidthRem = 1.6
+const cardHeightRem = 3.2
 
 // 获取按钮中心点
 const getButtonCenter = () => {
-    const buttonContainer = document.querySelector('.btn-container');
+    const buttonContainer = document.querySelector('.btn-container')
     if (buttonContainer) {
-        const rect = buttonContainer.getBoundingClientRect();
-        buttonCenterX = rect.left + rect.width / 2;
-        buttonCenterY = rect.top + rect.height / 2;
+        const rect = buttonContainer.getBoundingClientRect()
+        buttonCenterX = rect.left + rect.width / 2
+        buttonCenterY = rect.top + rect.height / 2
     }
-};
+}
 
 // 开始按压
 const startPress = (event) => {
-    event.preventDefault();
-    isLongPress.value = true;
+    event.preventDefault()
+    isLongPress.value = true
 
-    if (pressTimer) clearTimeout(pressTimer);
-
-    handleLongPress();
-};
+    if (pressTimer) clearTimeout(pressTimer)
+    
+    // 立即开始动画，减少延迟
+    getButtonCenter()
+    startAnimation()
+}
 
 // 结束按压
 const endPress = () => {
     if (pressTimer) {
-        clearTimeout(pressTimer);
-        pressTimer = null;
+        clearTimeout(pressTimer)
+        pressTimer = null
     }
-    isLongPress.value = false;
+    isLongPress.value = false
 
     if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+        cancelAnimationFrame(animationFrameId)
+        animationFrameId = null
     }
 
     setTimeout(() => {
         emit('shuffleEnd')
     }, 500)
-};
+}
 
 // 取消按压
 const cancelPress = () => {
     if (pressTimer) {
-        clearTimeout(pressTimer);
-        pressTimer = null;
+        clearTimeout(pressTimer)
+        pressTimer = null
     }
-    isLongPress.value = false;
+    isLongPress.value = false
 
     if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+        cancelAnimationFrame(animationFrameId)
+        animationFrameId = null
     }
-};
-
-// 处理长按逻辑
-const handleLongPress = () => {
-    pressTimer = null;
-    getButtonCenter();
-    startAnimation();
-};
+}
 
 // 开始动画
 const startAnimation = () => {
     if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
+        cancelAnimationFrame(animationFrameId)
     }
-    step();
-};
+    
+    // 使用requestAnimationFrame进行动画循环
+    const animate = () => {
+        if (!isLongPress.value) return
+        
+        // 性能优化：减少每帧的计算量
+        updateCardsPosition()
+        animationFrameId = requestAnimationFrame(animate)
+    }
+    
+    animationFrameId = requestAnimationFrame(animate)
+}
 
 /**
- * 初始化卡片 - 减小卡片距离，让卡片更靠近中心按钮
+ * 初始化卡片 - 调整卡片分布，集中在上下位置，离按钮更远
  */
 function initCards() {
     cards.value = []
-    const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize);
-
-    // 计算卡片尺寸（像素）
-    const cardWidthPx = cardWidthRem * remInPixels;
-    const cardHeightPx = cardHeightRem * remInPixels;
-    const cardDiagonal = Math.sqrt(cardWidthPx * cardWidthPx + cardHeightPx * cardHeightPx);
-
-    // 计算安全范围
-    const minDistanceToEdgeX = Math.min(buttonCenterX, screenWidth.value - buttonCenterX);
-    const minDistanceToEdgeY = Math.min(buttonCenterY, screenHeight.value - buttonCenterY);
-
-    // 计算最大半径，减小最大半径，让卡片更靠近
-    const maxRadiusX = minDistanceToEdgeX - cardWidthPx / 2;
-    const maxRadiusY = minDistanceToEdgeY - cardHeightPx / 2;
-    const maxRadius = Math.min(maxRadiusX, maxRadiusY) * 0.6; // 从0.9减少到0.6，让卡片更靠近
-
-    // 使用轨道数量，但减少轨道间距
-    const orbitCount = 6; // 减少轨道数量，让卡片更集中
-    const cardsPerOrbit = Math.ceil(totalCardNum.value / orbitCount);
-
-    // 创建位置数组，用于避免重叠
-    const positions = [];
-
+    
+    // 缓存计算值
+    remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize)
+    cardWidthPx = cardWidthRem * remInPixels
+    cardHeightPx = cardHeightRem * remInPixels
+    
+    // 计算按钮半径
+    const buttonRadius = (buttonSizeRem * remInPixels) / 2
+    
+    // 计算最小半径（大幅增加，让卡片离按钮更远）
+    // 在手机端，为了让卡片离按钮更远，我们使用更大的系数
+    const minRadius = buttonRadius + cardWidthPx * 6.5
+    
+    // 计算最大可用半径（使用屏幕宽高较小值的40%作为最大半径）
+    const screenMinSize = Math.min(screenWidth.value, screenHeight.value)
+    const maxRadius = screenMinSize * 0.4
+    
+    // 确保最小半径不超过最大半径
+    const actualMinRadius = Math.min(minRadius, maxRadius * 0.8)
+    
+    // 根据卡片数量决定轨道数量（使用椭圆形分布，集中在上下）
+    const orbitCount = Math.min(4, Math.max(2, Math.ceil(totalCardNum.value / 3)))
+    
+    // 计算每个轨道的卡片数量
+    const cardsPerOrbit = Math.ceil(totalCardNum.value / orbitCount)
+    
     for (let i = 0; i < totalCardNum.value; i++) {
-        // 尝试找到不重叠的位置
-        let attempts = 0;
-        let foundPosition = false;
-        let angle, radius;
-
-        while (!foundPosition && attempts < 30) { // 减少尝试次数
-            // 确定轨道
-            const orbitIndex = Math.floor(i / cardsPerOrbit) % orbitCount;
-
-            // 计算每个轨道的半径 - 减小最小半径
-            const t = orbitIndex / (orbitCount - 1);
-            const minRadius = (buttonSizeRem * remInPixels) / 2 + cardDiagonal * 0.8; // 从1.5减少到0.8
-
-            radius = minRadius + Math.pow(t, 1.2) * maxRadius; // 减小指数系数
-
-            // 减小随机偏移幅度，让卡片更整齐
-            const radiusOffset = (Math.random() - 0.5) * (radius * 0.08);
-            radius = Math.max(minRadius, Math.min(radius + radiusOffset, maxRadius));
-
-            // 计算角度，减少随机性
-            const baseAngle = (i * 2 * Math.PI) / cardsPerOrbit;
-            const angleOffset = (orbitIndex * Math.PI / 4) + (Math.random() - 0.5) * 0.2;
-            angle = baseAngle + angleOffset;
-
-            // 检查这个位置是否与已有位置重叠
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-
-            let tooClose = false;
-            for (const pos of positions) {
-                const dx = x - pos.x;
-                const dy = y - pos.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < cardDiagonal * 1.1) { // 减小最小距离
-                    tooClose = true;
-                    break;
-                }
-            }
-
-            if (!tooClose) {
-                foundPosition = true;
-                positions.push({ x, y });
-            }
-
-            attempts++;
+        // 确定轨道索引
+        const orbitIndex = Math.floor(i / cardsPerOrbit)
+        
+        // 计算基础半径（从内向外递增）
+        const orbitProgress = orbitIndex / (orbitCount - 1 || 1)
+        const baseRadius = actualMinRadius + (maxRadius - actualMinRadius) * orbitProgress
+        
+        // 使用椭圆形分布，让卡片更多集中在上下方向
+        // 计算角度（集中在上下方向）
+        const angleStep = (2 * Math.PI) / cardsPerOrbit
+        let baseAngle = angleStep * (i % cardsPerOrbit)
+        
+        // 调整角度，让更多卡片集中在上下方向（90°和270°附近）
+        // 将角度转换为度数以便处理
+        let angleDeg = (baseAngle * 180 / Math.PI) % 360
+        
+        // 如果是左右方向（0°, 180°附近），向外偏移一些角度
+        if ((angleDeg >= 315 || angleDeg <= 45) || (angleDeg >= 135 && angleDeg <= 225)) {
+            // 左右方向的卡片，向外偏移15°
+            baseAngle += (Math.PI / 12) * (Math.random() > 0.5 ? 1 : -1)
         }
-
-        // 如果找不到不重叠的位置，使用随机位置
-        if (!foundPosition) {
-            const orbitIndex = Math.floor(i / cardsPerOrbit) % orbitCount;
-            const t = orbitIndex / (orbitCount - 1);
-            const minRadius = (buttonSizeRem * remInPixels) / 2 + cardDiagonal * 0.8;
-            radius = minRadius + Math.pow(t, 1.2) * maxRadius;
-            angle = Math.random() * 2 * Math.PI;
+        
+        // 为椭圆形分布设置不同的XY半径
+        // 上下方向使用更大的半径，左右方向使用较小的半径
+        let radiusX, radiusY
+        
+        // 判断角度是否在上下方向（60°-120°或240°-300°）
+        if ((angleDeg > 60 && angleDeg < 120) || (angleDeg > 240 && angleDeg < 300)) {
+            // 上下方向：Y轴半径更大，X轴半径更小
+            radiusX = baseRadius * 0.7
+            radiusY = baseRadius * 1.3
+        } else {
+            // 左右方向：X轴半径更大，Y轴半径更小
+            radiusX = baseRadius * 1.1
+            radiusY = baseRadius * 0.9
         }
-
-        // 公转速度
-        const orbitSpeed = 1.5 + Math.random() * 0.5;
-
-        // ========== 核心修改：强化自转的随机性 ==========
-        // 1. 随机初始自转角度（0-360°），确保每张牌初始朝向不同
-        const initRotation = Math.random() * 360;
-        // 2. 随机自转速度（包含正负值，实现顺时针/逆时针随机），范围：-5 ~ 5°/帧
-        // 负数=逆时针，正数=顺时针，绝对值越大转速越快
-        const spinSpeed = (Math.random() - 0.5) * 10; 
-
+        
+        // 添加少量随机性
+        const randomOffset = (Math.random() - 0.5) * 0.2
+        baseAngle += randomOffset
+        
+        // 计算位置（椭圆形分布）
+        const x = Math.cos(baseAngle) * radiusX
+        const y = Math.sin(baseAngle) * radiusY
+        
+        // 计算实际半径（用于公转）
+        const actualRadius = Math.sqrt(x * x + y * y)
+        
+        // 随机自转速度和方向
+        const spinSpeed = (Math.random() - 0.5) * 3.5
+        
         const card = {
             index: i + 1,
-            angle: angle,
-            radius: radius,
-            rotation: initRotation, // 赋值随机初始自转角度
-            orbitSpeed: orbitSpeed,
-            spinSpeed: spinSpeed, // 赋值随机自转速度
+            x: x,
+            y: y,
+            angle: baseAngle,
+            radius: actualRadius,
+            radiusX: radiusX,
+            radiusY: radiusY,
+            rotation: Math.random() * 360,
+            spinSpeed: spinSpeed,
+            orbitSpeed: 1.5 + Math.random() * 0.8, // 降低公转速度
             zIndex: i,
-            orbitIndex: Math.floor(i / cardsPerOrbit) % orbitCount,
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius,
-            bounceX: 1,
-            bounceY: 1
-        };
-
-        // 确保卡片在屏幕内
-        ensureCardInScreen(card);
-        cards.value.push(card);
+            orbitIndex: orbitIndex
+        }
+        
+        cards.value.push(card)
     }
 }
 
 /**
- * 确保卡片在屏幕内
+ * 更新卡片位置 - 使用椭圆形公转
  */
-function ensureCardInScreen(card) {
-    const remInPixels = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    const cardWidthPx = cardWidthRem * remInPixels;
-    const cardHeightPx = cardHeightRem * remInPixels;
-
-    // 计算卡片边界
-    const cardLeft = buttonCenterX + card.x - cardWidthPx / 2;
-    const cardRight = buttonCenterX + card.x + cardWidthPx / 2;
-    const cardTop = buttonCenterY + card.y - cardHeightPx / 2;
-    const cardBottom = buttonCenterY + card.y + cardHeightPx / 2;
-
-    // 检查是否超出屏幕边界
-    let adjusted = false;
-
-    // 如果卡片超出右边界，调整x坐标
-    if (cardRight > screenWidth.value) {
-        card.x -= (cardRight - screenWidth.value);
-        card.bounceX = -1;
-        adjusted = true;
-    }
-
-    // 如果卡片超出左边界
-    if (cardLeft < 0) {
-        card.x -= cardLeft;
-        card.bounceX = 1;
-        adjusted = true;
-    }
-
-    // 如果卡片超出下边界
-    if (cardBottom > screenHeight.value) {
-        card.y -= (cardBottom - screenHeight.value);
-        card.bounceY = -1;
-        adjusted = true;
-    }
-
-    // 如果卡片超出上边界
-    if (cardTop < 0) {
-        card.y -= cardTop;
-        card.bounceY = 1;
-        adjusted = true;
-    }
-
-    // 如果调整了位置，更新角度和半径
-    if (adjusted) {
-        card.radius = Math.sqrt(card.x * card.x + card.y * card.y);
-        card.angle = Math.atan2(card.y, card.x);
-    }
-
-    return adjusted;
-}
-
-/**
- * 更新卡片位置
- */
-function updateCardPosition(card) {
-    card.x = Math.cos(card.angle) * card.radius;
-    card.y = Math.sin(card.angle) * card.radius;
+function updateCardsPosition() {
+    cards.value.forEach((card) => {
+        // 更新公转角度
+        card.angle += card.orbitSpeed * 0.015 // 降低角度增量
+        
+        // 确保角度在合理范围内
+        if (card.angle > Math.PI * 2) card.angle -= Math.PI * 2
+        if (card.angle < 0) card.angle += Math.PI * 2
+        
+        // 更新位置（椭圆形分布）
+        card.x = Math.cos(card.angle) * card.radiusX
+        card.y = Math.sin(card.angle) * card.radiusY
+        
+        // 更新实际半径
+        card.radius = Math.sqrt(card.x * card.x + card.y * card.y)
+        
+        // 更新自转
+        card.rotation += card.spinSpeed
+        if (card.rotation > 360) card.rotation -= 360
+        if (card.rotation < 0) card.rotation += 360
+    })
 }
 
 /**
  * 计算卡片样式
  */
 const cardStyle = (card) => {
-    // 确保卡片在屏幕内
-    ensureCardInScreen(card);
-
-    const left = buttonCenterX + card.x;
-    const top = buttonCenterY + card.y;
-
+    // 计算卡片在屏幕上的绝对位置
+    const left = buttonCenterX + card.x
+    const top = buttonCenterY + card.y
+    
     return {
-        left: `${left}px`,
-        top: `${top}px`,
-        // 核心：应用自转角度（rotation）
-        transform: `translate(-50%, -50%) rotate(${card.rotation}deg)`,
+        // 使用transform3d进行硬件加速
+        transform: `translate3d(${left}px, ${top}px, 0) rotate(${card.rotation}deg)`,
+        willChange: 'transform',
         zIndex: card.zIndex,
-        // backgroundColor: '#fff',
-        boxShadow: `0 2px 6px rgba(0,0,0,${0.1 + card.orbitIndex * 0.02})`,
-        borderColor: `hsl(${card.orbitIndex * 40}, 50%, 85%)`
-    };
-};
-
-/**
- * 每一帧的动画处理
- */
-function step() {
-    if (isLongPress.value) {
-        cards.value.forEach(card => {
-            // 公转
-            card.angle += card.orbitSpeed * 0.015;
-
-            // ========== 核心：持续更新自转角度 ==========
-            // 每帧累加自转速度，实现持续自转
-            card.rotation += card.spinSpeed;
-            // 可选：将角度限制在0-360°，避免数值无限增大（不影响视觉，但更优雅）
-            card.rotation = card.rotation % 360;
-
-            // 确保角度在0-2π之间
-            if (card.angle < 0) card.angle += 2 * Math.PI;
-            if (card.angle > 2 * Math.PI) card.angle -= 2 * Math.PI;
-
-            updateCardPosition(card);
-
-            // 检查卡片是否超出屏幕
-            if (ensureCardInScreen(card)) {
-                // 如果卡片超出边界，调整角度使其反弹
-                card.angle += Math.PI * 0.01 * card.bounceX;
-            }
-        });
-
-        animationFrameId = requestAnimationFrame(step);
+        boxShadow: `0 2px 10px rgba(0,0,0,${0.15 + card.orbitIndex * 0.03})`,
     }
 }
 
 // 更新屏幕尺寸
 const updateScreenSize = () => {
-    screenWidth.value = window.innerWidth;
-    screenHeight.value = window.innerHeight;
-    getButtonCenter();
-    initCards();
-};
+    screenWidth.value = window.innerWidth
+    screenHeight.value = window.innerHeight
+    getButtonCenter()
+    initCards()
+}
 
 onMounted(() => {
-    updateScreenSize();
-    setTimeout(() => {
-        getButtonCenter();
-        initCards();
-    }, 100);
-
-    window.addEventListener('resize', updateScreenSize);
-});
+    updateScreenSize()
+    
+    // 使用nextTick确保DOM已渲染
+    nextTick(() => {
+        getButtonCenter()
+        // 延迟一点点确保按钮位置正确
+        setTimeout(() => {
+            initCards()
+        }, 100)
+    })
+    
+    window.addEventListener('resize', updateScreenSize)
+})
 
 onUnmounted(() => {
-    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    if (pressTimer) clearTimeout(pressTimer);
-    window.removeEventListener('resize', updateScreenSize);
-});
+    if (animationFrameId) cancelAnimationFrame(animationFrameId)
+    if (pressTimer) clearTimeout(pressTimer)
+    window.removeEventListener('resize', updateScreenSize)
+})
 </script>
 
 <template>
     <div class="shuffle-container">
         <btnRestart />
+        
         <!-- 卡片容器，用于定位卡片 -->
         <div class="cards-container">
-            <div v-for="(card, index) in cards" :key="index" class="card" :style="cardStyle(card)">
+            <div 
+                v-for="(card, index) in cards" 
+                :key="index" 
+                class="card" 
+                :style="cardStyle(card)"
+            >
                 <img src="/data/back.jpg" width="100%" height="100%" />
             </div>
         </div>
 
-        <!-- 按钮容器 -->
+        <!-- 按钮容器 - 确保在中心 -->
         <div class="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 btn-container">
             <div class="btn-box" :class="{ 'long': isLongPress }">
                 <div class="box" :class="{ 'long': isLongPress }"></div>
-                <div class="btn" @mousedown="startPress" @mouseup="endPress" @touchstart="startPress"
-                    @touchend="endPress" @mouseleave="cancelPress" @touchcancel="cancelPress" @contextmenu.prevent>按住洗牌
+                <div 
+                    class="btn" 
+                    @mousedown="startPress" 
+                    @mouseup="endPress" 
+                    @touchstart="startPress"
+                    @touchend="endPress" 
+                    @mouseleave="cancelPress" 
+                    @touchcancel="cancelPress" 
+                    @contextmenu.prevent
+                >
+                    按住洗牌
                 </div>
             </div>
         </div>
@@ -387,6 +332,10 @@ onUnmounted(() => {
     height: 100%;
     --color: orange;
     --lineColor: rgba(102, 163, 224, .2);
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    overflow: hidden;
 }
 
 .btn-box {
@@ -417,6 +366,7 @@ onUnmounted(() => {
     height: 2.4rem;
     position: relative;
     transform-origin: 50% 50%;
+    backface-visibility: hidden;
 }
 
 .box.long {
@@ -429,6 +379,7 @@ onUnmounted(() => {
     margin-top: -1.1rem;
     margin-left: -1.1rem;
     transform: rotateZ(60deg);
+    backface-visibility: hidden;
 }
 
 .box.long::before {
@@ -441,6 +392,7 @@ onUnmounted(() => {
     margin-top: -1rem;
     margin-left: -1rem;
     transform: rotateZ(30deg);
+    backface-visibility: hidden;
 }
 
 .box.long::after {
@@ -464,12 +416,14 @@ onUnmounted(() => {
     left: 50%;
     top: 50%;
     transform-origin: 50% 50%;
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
     width: 60%;
     height: 60%;
     border-radius: 50%;
     background-color: var(--color);
-    box-shadow: 0 0 30px rgba(52, 152, 219, 0.4);
+    box-shadow: 
+        0 0 30px rgba(52, 152, 219, 0.4),
+        0 0 0 10px rgba(255, 165, 0, 0.1); /* 增加按钮周围的发光效果 */
     color: #fff;
     font-size: 0.25rem;
     display: flex;
@@ -477,17 +431,20 @@ onUnmounted(() => {
     justify-content: center;
     text-align: center;
     font-weight: bold;
-    z-index: 100;
+    z-index: 1000;
     cursor: pointer;
+    /* 启用硬件加速 */
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* 卡片样式 */
+/* 卡片样式 - 移除背景颜色和边框 */
 .card {
     position: absolute;
-    width: 0.8rem;
-    height: 1.6rem;
-    /* background: radial-gradient(circle, #a53d4e, #e94560); */
-    color: var(--color);
+    width: 1.6rem;
+    height: 3.2rem;
     border-radius: 0.06rem;
     display: flex;
     align-items: center;
@@ -495,19 +452,32 @@ onUnmounted(() => {
     font-size: 0.25rem;
     font-weight: bold;
     color: #333;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    /* border: 1px solid #e0e0e0; */
-    transform-origin: center; /* 关键：确保自转围绕卡片中心 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transform-origin: center;
+    /* 启用硬件加速 */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    /* 提升渲染层级 */
+    transform: translateZ(0);
     z-index: 10;
     pointer-events: none;
+    /* 调整卡片位置，使其中心对准坐标点 */
+    margin-left: -0.8rem;  /* 向左移动卡片宽度的一半 */
+    margin-top: -1.6rem;   /* 向上移动卡片高度的一半 */
+    /* 移除背景颜色和边框 */
+    background: transparent;
+    border: none;
 }
 
 /* 确保按钮在卡片之上 */
 .btn-container {
-    z-index: 100;
+    z-index: 1000;
+    /* 启用硬件加速 */
+    transform: translateZ(0);
 }
 
-/* 卡片容器，用于定位卡片 */
+/* 卡片容器 */
 .cards-container {
     position: fixed;
     left: 0;
@@ -515,5 +485,22 @@ onUnmounted(() => {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    /* 启用硬件加速 */
+    transform: translateZ(0);
+}
+
+/* 移动端触摸优化 */
+@media (max-width: 768px) {
+    .btn {
+        touch-action: manipulation;
+        font-size: 0.28rem;
+        box-shadow: 
+            0 0 25px rgba(52, 152, 219, 0.5),
+            0 0 0 8px rgba(255, 165, 0, 0.15); /* 移动端增加发光范围 */
+    }
+    
+    .card {
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+    }
 }
 </style>

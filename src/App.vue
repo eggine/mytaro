@@ -14,6 +14,8 @@ const analysisCard = ref({})
 const explainRef = ref()
 const isRead = ref(false)
 const analysisData = ref({})
+const saveRole = ref('知心姐姐')
+const isAgain = ref(false)
 
 const handleSelectSubject = (subject) => {
   console.log(subject)
@@ -32,9 +34,14 @@ const handleSelectCard = (cards) => {
   flow.value = 'explain'
 }
 
-const handleAnalysis = (card) => {
-  console.log(card)
-  analysisCard.value = card
+const handleAnalysis = (role) => {
+  console.log(role)
+  if (role !== saveRole.value && isRead.value) {
+    isAgain.value = true
+  } else {
+    isAgain.value = false
+  }
+  saveRole.value = role
   isShowAnalysis.value = true
 }
 
@@ -50,7 +57,7 @@ function handleRead(data) {
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
     <Explain ref="explainRef" v-if="flow === 'explain'" v-show="!isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :isRead="isRead" @handleAnalysis="handleAnalysis" />
-    <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" @handleRead="handleRead" />
+    <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" :role="saveRole" :isAgain="isAgain" @handleRead="handleRead" />
   </div>
 </template>
 

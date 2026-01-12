@@ -24,6 +24,14 @@ const props = defineProps({
     analysisData: {
         type: Object,
         default: () => ({})
+    },
+    role: {
+        type: String,
+        default: '知心姐姐'
+    },
+    isAgain: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -42,7 +50,7 @@ function handleBackClick() {
 }
 
 async function handleAskApi() {
-    if (props.analysisData.total) {
+    if (props.analysisData.total && !props.isAgain) {
         resData.value = JSON.parse(JSON.stringify(props.analysisData))
         isIng.value = false
         return
@@ -55,7 +63,8 @@ async function handleAskApi() {
     }))
     const params = {
         '问题': props.selectedSubject.descrip,
-        '牌面': cardFaces
+        '牌面': cardFaces,
+        role: props.role
     }
     const res = await getExplain(params)
     console.log(res)
@@ -96,7 +105,7 @@ onMounted(() => {
                 <div class="title">逐牌解读</div>
                 <div class="content">
                     <div v-for="(item, index) in resData.mono" :key="index" class="mono-tr">
-                        {{ (index + 1) }}、{{ item }}
+                        {{ slots[index] }}：{{ item }}
                     </div>
                 </div>
             </div>
@@ -139,9 +148,10 @@ onMounted(() => {
 }
 
 .analysis-content {
-    padding-top: 3rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-top: 1.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .tr {
@@ -150,11 +160,11 @@ onMounted(() => {
 
 .title {
     color: #fff;
-    font-size: 0.4rem;
+    font-size: 0.6rem;
 }
 
 .content {
     color: #fff;
-    font-size: 0.2rem;
+    font-size: 0.4rem;
 }
 </style>

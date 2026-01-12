@@ -9,7 +9,7 @@ function handleRestart() {
 </script>
 
 <template>
-    <div class="fixed btn-restart top-[1rem] right-[1rem] text-center text-white text-[0.3rem] font-bold cursor-pointer"
+    <div class="fixed btn-restart top-[1rem] right-[1rem] text-center text-white text-[0.4rem] font-bold cursor-pointer"
         @click="handleRestart">重新开始</div>
 </template>
 

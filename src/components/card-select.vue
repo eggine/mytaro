@@ -17,8 +17,8 @@ const props = defineProps({
 const cardNum = spread[props.selectedSubject.spread].cardNum
 const totalCardNum = cardNum
 // 基础卡片尺寸 (rem为单位，适配所有屏幕)
-const cardBaseW = ref(0.8)  // 卡片宽度
-const cardBaseH = ref(1.2)  // 卡片高度
+const cardBaseW = ref(1.2)  // 卡片宽度
+const cardBaseH = ref(2)  // 卡片高度
 // 核心：每张卡片向右重叠 1/3 宽度 (固定比例)
 const overlapRatio = 1 / 3
 const overlapWidth = computed(() => cardBaseW.value * overlapRatio)

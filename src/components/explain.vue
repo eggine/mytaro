@@ -24,6 +24,7 @@ const currentCard = computed(() => {
     return props.selectedCardList.find(card => card.id === currentCardId.value) || {}
 })
 const currentCardId = ref('')
+const role = ref('知心姐姐')
 
 // 2. 计算分组后的二维数组（核心逻辑）
 const cardRows = computed(() => {
@@ -56,14 +57,13 @@ function handleRestart() {
 }
 
 function handleExplain() {
-    emit('handleAnalysis')
+    emit('handleAnalysis', role.value)
 }
 </script>
 
 <template>
     <div class="h-full w-full">
         <btnRestart />
-        <div class="card-btn-box" @click="handleExplain">{{ isRead ? '查看解读' : '解读' }}</div>
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
@@ -72,7 +72,7 @@ function handleExplain() {
                         <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;"
                             :style="{ transform: card.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
                     </div>
-                    <div class="card-text">{{ slots[cardIndex] }}</div>
+                    <div class="card-text">{{ slots[cardIndex + rowIndex * 3] }}</div>
                 </div>
             </div>
         </div>
@@ -96,6 +96,13 @@ function handleExplain() {
                 </div>
             </div>
         </transition>
+        <div class="card-btn-box">
+            <div @click="handleExplain" class="btn-1">{{ isRead ? '查看解读' : '解读' }}</div>
+            <select class="btn-2" v-model="role">
+                <option value="知心姐姐" style="background-color: blue;">知心姐姐</option>
+                <option value="暴躁老哥" style="background-color: blue;">暴躁老哥</option>
+            </select>
+        </div>
     </div>
 </template>
 
@@ -105,7 +112,7 @@ function handleExplain() {
     flex-wrap: wrap;
     align-items: center;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0.3rem;
     justify-content: center;
     width: 100%;
     height: 100%;
@@ -122,20 +129,20 @@ function handleExplain() {
 }
 
 .card-item {
-    width: 1.6rem;
+    width: 3rem;
     position: relative;
-    height: 3.5rem;
+    height: 5.5rem;
 }
 
 .card-text {
     color: #fff;
     text-align: center;
-    font-size: 0.2rem;
+    font-size: 0.4rem;
 }
 
 .card {
-    width: 1.6rem;
-    height: 3rem;
+    width: 3rem;
+    height: 4.4rem;
     font-size: 14px;
     font-weight: bold;
     color: #fff;
@@ -228,14 +235,14 @@ function handleExplain() {
     width: 4rem;
     position: fixed;
     left: 70%;
-    font-size: 0.25rem;
+    font-size: 0.4rem;
     color: #fff;
     top: 30%;
     padding-right: 0.3rem;
 }
 
 .card-name {
-    font-size: 0.15rem;
+    font-size: 0.3rem;
     color: #fff;
     text-align: center;
     left: 0;
@@ -246,28 +253,47 @@ function handleExplain() {
 
 @media screen and (max-width: 760px) {
     .title-box {
-        bottom: 10%;
+        bottom: 8%;
         top: auto;
-        left: 50%;
+        left: 64%;
         transform: translateX(-50%);
         padding-right: 0;
+        width: 100%;
     }
 }
 
 .card-btn-box {
-    font-size: 0.2rem;
-    color: #fff;
-    border: 1px solid #fff;
-    height: 0.6rem;
-    line-height: 0.6rem;
-    padding: 0 0.6rem;
-    border-radius: 4px;
-    text-align: center;
-    margin-top: 0.1rem;
-    cursor: pointer;
     position: absolute;
-    top: 1rem;
+    bottom: 1rem;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-1 {
+    font-size: 0.4rem;
+    color: #fff;
+    border: 1px solid #fff;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    padding: 0 0.8rem;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 0.2rem;
+}
+
+.btn-2 {
+    font-size: 0.4rem;
+    color: #fff;
+    border: 1px solid #fff;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    padding: 0 0.4rem;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
 }
 </style>
