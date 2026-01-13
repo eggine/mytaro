@@ -47,13 +47,13 @@ function handleRead(data) {
 
 <template>
   <div class="w-full h-full">
+    <img src="/data/back.jpg"  style="display: none;" />
     <Subject v-if="flow === 'subject'" @selectSubject="handleSelectSubject" />
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
     <Explain ref="explainRef" v-if="flow === 'explain'" v-show="!isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" @handleAnalysis="handleAnalysis" />
     <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" :role="saveRole" :isRead="saveRead" @handleRead="handleRead" />
 
-    <img src="/data/back.jpg"  style="width: 250px; height: 430px;display: none;" />
   </div>
 </template>
 
