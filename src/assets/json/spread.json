@@ -1,24 +1,28 @@
 [
   {
     "index": 0,
+    "cardNum": 78,
     "name": "事物发展趋势",
     "descp": "xxxx",
     "slots": ["过去", "现在", "未来"]
   },
   {
     "index": 1,
+    "cardNum": 78,
     "name": "高级事物发展趋势",
     "descp": "xxxx",
     "slots": ["开端", "发展", "阻碍", "结果", "建议"]
   },
   {
     "index": 2,
+    "cardNum": 78,
     "name": "职业发展简单",
     "descp": "xxxx",
     "slots": ["核心竞争力", "你的优势", "你的劣势", "最终成就"]
   },
   {
     "index": 3,
+    "cardNum": 78,
     "name": "职业发展全景",
     "descp": "xxxx",
     "slots": [
@@ -33,18 +37,21 @@
   },
   {
     "index": 4,
+    "cardNum": 78,
     "name": "机会事业探索",
     "descp": "xxxx",
     "slots": ["现状/心态", "眼前的时机", "成功的概率", "影响因素", "发展结果"]
   },
   {
     "index": 5,
+    "cardNum": 78,
     "name": "决策二择一",
     "descp": "xxxx",
     "slots": ["现状", "A的近期未来", "B的近期未来", "A的结果", "B的结果"]
   },
   {
     "index": 6,
+    "cardNum": 78,
     "name": "决策三择一",
     "descp": "xxxx",
     "slots": [
@@ -59,6 +66,7 @@
   },
   {
     "index": 7,
+    "cardNum": 78,
     "name": "剖析婚姻关系",
     "descp": "xxxx",
     "slots": [
@@ -73,6 +81,7 @@
   },
   {
     "index": 8,
+    "cardNum": 78,
     "name": "分析恋人复合可能性",
     "descp": "xxxx",
     "slots": [
@@ -89,6 +98,7 @@
   },
   {
     "index": 9,
+    "cardNum": 78,
     "name": "探索下一任伴侣的信息和发展",
     "descp": "xxxx",
     "slots": [
@@ -102,6 +112,7 @@
   },
   {
     "index": 10,
+    "cardNum": 78,
     "name": "探索两人当下的情感状态和问题",
     "descp": "xxxx",
     "slots": [
@@ -114,6 +125,7 @@
   },
   {
     "index": 11,
+    "cardNum": 78,
     "name": "了解双方内心想法评估关系发展",
     "descp": "xxxx",
     "slots": [
@@ -127,6 +139,7 @@
   },
   {
     "index": 12,
+    "cardNum": 78,
     "name": "每日运势",
     "descp": "xxxx",
     "slots": [
