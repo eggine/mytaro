@@ -3,20 +3,20 @@
     "kind": "感情",
     "details": [
       {
-        "descrip": "探索恋人复合可能性",
-        "spread": 0
+        "descrip": "分析恋人复合可能性",
+        "spread": 8
       },
       {
-        "descrip": "剖析婚姻关系及走向",
-        "spread": 3
+        "descrip": "剖析婚姻关系",
+        "spread": 7
       },
       {
-        "descrip": "分析现任恋人是否合适",
-        "spread": 0
+        "descrip": "探索下一任伴侣的信息和发展",
+        "spread": 9
       },
       {
-        "descrip": "分析适合我的下一任伴侣",
-        "spread": 0
+        "descrip": "探索两人当下的情感状态和问题",
+        "spread": 10
       }
     ]
   },
@@ -25,10 +25,23 @@
     "details": [
       {
         "descrip": "是否应该跳槽",
+        "spread": 5
+      },
+      {
+        "descrip": "目前的行业是否有发展空间",
+        "spread": 3
+      }
+    ]
+  },
+  {
+    "kind": "健康",
+    "details": [
+      {
+        "descrip": "还能活几年",
         "spread": 1
       },
       {
-        "descrip": "现在的行业与我的匹配度",
+        "descrip": "什么时候康复",
         "spread": 1
       }
     ]
@@ -37,8 +50,12 @@
     "kind": "学业",
     "details": [
       {
+        "descrip": "会不会挂科",
+        "spread": 0
+      },
+      {
         "descrip": "能不能上清华",
-        "spread": 2
+        "spread": 0
       }
     ]
   },
@@ -46,20 +63,20 @@
     "kind": "通用",
     "details": [
       {
-        "descrip": "时间流",
-        "spread": 0
+        "descrip": "每日运势",
+        "spread": 12
       },
       {
-        "descrip": "二选一",
+        "descrip": "事情发展趋势",
         "spread": 1
       },
       {
-        "descrip": "三选一",
-        "spread": 2
+        "descrip": "决策二选一",
+        "spread": 5
       },
       {
-        "descrip": "一对一关系中双方的内心想法",
-        "spread": 2
+        "descrip": "决策三选一",
+        "spread": 6
       }
     ]
   }
