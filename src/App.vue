@@ -12,10 +12,9 @@ const selectedCardList = ref([])
 const isShowAnalysis = ref(false)
 const analysisCard = ref({})
 const explainRef = ref()
-const isRead = ref(false)
 const analysisData = ref({})
 const saveRole = ref('知心姐姐')
-const isAgain = ref(false)
+const saveRead = ref(false)
 
 const handleSelectSubject = (subject) => {
   console.log(subject)
@@ -34,19 +33,14 @@ const handleSelectCard = (cards) => {
   flow.value = 'explain'
 }
 
-const handleAnalysis = (role) => {
-  console.log(role)
-  if (role !== saveRole.value && isRead.value) {
-    isAgain.value = true
-  } else {
-    isAgain.value = false
-  }
-  saveRole.value = role
+const handleAnalysis = (role, isRead) => {
   isShowAnalysis.value = true
+  saveRole.value = role
+  saveRead.value = isRead
 }
 
 function handleRead(data) {
-  isRead.value = true
+  explainRef.value.isRead = true
   analysisData.value = data
 }
 </script>
@@ -56,8 +50,10 @@ function handleRead(data) {
     <Subject v-if="flow === 'subject'" @selectSubject="handleSelectSubject" />
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
-    <Explain ref="explainRef" v-if="flow === 'explain'" v-show="!isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :isRead="isRead" @handleAnalysis="handleAnalysis" />
-    <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" :role="saveRole" :isAgain="isAgain" @handleRead="handleRead" />
+    <Explain ref="explainRef" v-if="flow === 'explain'" v-show="!isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" @handleAnalysis="handleAnalysis" />
+    <Analysis v-if="isShowAnalysis" v-model:isShowAnalysis="isShowAnalysis" :selectedSubject="selectedSubject" :selectedCardList="selectedCardList" :analysisCard="analysisCard" :analysisData="analysisData" :role="saveRole" :isRead="saveRead" @handleRead="handleRead" />
+
+    <img src="/data/back.jpg"  style="width: 250px; height: 430px;display: none;" />
   </div>
 </template>
 

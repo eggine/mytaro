@@ -13,11 +13,12 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
-    isRead: {
-        type: Boolean,
-        default: false
-    }
+    // isRead: {
+    //     type: Boolean,
+    //     default: false
+    // }
 })
+const isRead = ref(props.isRead)
 const slots = spread[props.selectedSubject.spread].slots
 console.log(slots)
 const currentCard = computed(() => {
@@ -57,8 +58,17 @@ function handleRestart() {
 }
 
 function handleExplain() {
-    emit('handleAnalysis', role.value)
+    emit('handleAnalysis', role.value, isRead.value)
 }
+
+function handleRole() {
+    console.log(role.value)
+    isRead.value = false
+}
+
+defineExpose({
+    isRead
+})
 </script>
 
 <template>
@@ -79,7 +89,7 @@ function handleExplain() {
         <div class="overlay" v-if="currentCardId" @click="currentCardId = ''"></div>
         <transition name="zoom">
             <div v-if="currentCardId" class="card-box-fixed" @click="currentCardId = ''">
-                <div @click.stop>
+                <div>
 
                     <div class="title-box">
                         <div class="card-desc">描述：{{ currentCard.description }}</div>
@@ -98,7 +108,7 @@ function handleExplain() {
         </transition>
         <div class="card-btn-box">
             <div @click="handleExplain" class="btn-1">{{ isRead ? '查看解读' : '解读' }}</div>
-            <select class="btn-2" v-model="role">
+            <select class="btn-2" v-model="role" @change="handleRole">
                 <option value="知心姐姐" style="background-color: blue;">知心姐姐</option>
                 <option value="暴躁老哥" style="background-color: blue;">暴躁老哥</option>
             </select>

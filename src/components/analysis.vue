@@ -29,7 +29,7 @@ const props = defineProps({
         type: String,
         default: '知心姐姐'
     },
-    isAgain: {
+    isRead: {
         type: Boolean,
         default: false
     }
@@ -37,6 +37,7 @@ const props = defineProps({
 
 const slots = spread[props.selectedSubject.spread].slots
 console.log(props.selectedSubject, props.selectedCardList)
+const isError = ref(false)
 // 双向绑定处理
 const showAnalysis = computed({
     get: () => props.isShowAnalysis,
@@ -50,7 +51,7 @@ function handleBackClick() {
 }
 
 async function handleAskApi() {
-    if (props.analysisData.total && !props.isAgain) {
+    if (props.analysisData.total && props.isRead) {
         resData.value = JSON.parse(JSON.stringify(props.analysisData))
         isIng.value = false
         return
@@ -66,7 +67,10 @@ async function handleAskApi() {
         '牌面': cardFaces,
         role: props.role
     }
-    const res = await getExplain(params)
+    const res = await getExplain(params).catch((err) => {
+        isError.value = true
+        console.log(err)
+    })
     console.log(res)
     if (res && res.status === 200 && res.data && res.data.success) {
         isIng.value = false
@@ -78,6 +82,8 @@ async function handleAskApi() {
         resData.value = JSON.parse(cleanJsonStr);
         console.log(resData.value)
         emit('handleRead', resData.value)
+    } else {
+        isError.value = true
     }
 }
 
@@ -90,9 +96,11 @@ onMounted(() => {
     <div class="analysis-box fixed w-full h-full left-0 top-0 bg-black bottom-0 right-0">
         <div class="back-btn" @click="handleBackClick">返回</div>
 
-        <div v-if="isIng" class="isIng">正在解读...请稍等</div>
+        <div v-if="isIng && !isError" class="isIng">正在解读...请稍等</div>
+        <div v-if="isError" class="isIng">解读失败，请重试</div>
+        <div v-if="isError" class="isIng isError">重试</div>
 
-        <div v-else class="analysis-content">
+        <div v-if="resData.total" class="analysis-content">
             <div class="tr">
                 <div class="title">整体解读</div>
                 <div class="content">{{ resData.total }}</div>
@@ -145,6 +153,20 @@ onMounted(() => {
     cursor: pointer;
     border-radius: 4px;
     text-align: center;
+}
+
+.isError {
+    border: 1px solid #fff;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    padding: 0 0.8rem;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 4rem;
+    width: 4rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .analysis-content {
