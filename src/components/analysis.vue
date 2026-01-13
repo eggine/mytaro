@@ -113,7 +113,7 @@ onMounted(() => {
                 <div class="title">逐牌解读</div>
                 <div class="content">
                     <div v-for="(item, index) in resData.mono" :key="index" class="mono-tr">
-                        {{ slots[index] }}：{{ item }}
+                        <span style="color:yellow;">{{ slots[index] }}：</span>{{ item }}
                     </div>
                 </div>
             </div>
@@ -188,5 +188,9 @@ onMounted(() => {
 .content {
     color: #fff;
     font-size: 0.4rem;
+}
+
+.mono-tr {
+    margin-bottom: 0.3rem;
 }
 </style>
