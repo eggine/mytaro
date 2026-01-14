@@ -93,8 +93,8 @@ defineExpose({
 
                     <div class="title-box">
                         <div class="card-desc">描述：{{ currentCard.description }}</div>
-                        <div class="card-upright">正面：{{ currentCard.upright }}</div>
-                        <div class="card-reversed">反面：{{ currentCard.reversed }}</div>
+                        <div class="card-upright">正位：{{ currentCard.upright }}</div>
+                        <div class="card-reversed">逆位：{{ currentCard.reversed }}</div>
                     </div>
                     <div :class="{ 'active-box': currentCardId }">
                         <div class="card-name">{{ currentCard.name }}</div>
@@ -246,7 +246,7 @@ defineExpose({
     position: fixed;
     left: 70%;
     font-size: 0.4rem;
-    color: #fff;
+    color: #ffffff;
     top: 30%;
     padding-right: 0.3rem;
 }

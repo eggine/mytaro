@@ -318,7 +318,7 @@ onUnmounted(() => {
                     @touchcancel="cancelPress" 
                     @contextmenu.prevent
                 >
-                    按住洗牌
+                    按住提问
                 </div>
             </div>
         </div>
