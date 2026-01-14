@@ -9,16 +9,23 @@ function handleRestart() {
 </script>
 
 <template>
-    <div class="fixed btn-restart top-[1rem] right-[1rem] text-center text-white text-[0.4rem] font-bold cursor-pointer"
+    <div class="fixed btn-restart text-center text-white text-[0.4rem] font-bold cursor-pointer"
         @click="handleRestart">重新开始</div>
 </template>
 
 <style scoped>
 .btn-restart {
-    background-color: #fff;
-    padding: 0.1rem 0.3rem;
+   font-size: 0.4rem;
+    color: #fff;
+    border: 1px solid #fff;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    padding: 0 0.3rem;
     border-radius: 4px;
-    color: #e94560;
-    top: 0.2rem;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 0.2rem;
+    top: 0.3rem;
+    right: 0.2rem;
 }
 </style>

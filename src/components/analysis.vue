@@ -97,12 +97,16 @@ onMounted(() => {
 <template>
     <div class="analysis-box fixed w-full h-full left-0 top-0 bg-black bottom-0 right-0">
         <div class="back-btn" @click="handleBackClick">返回</div>
+        <div class="weixin-box">
+            <img src="/weixin.jpg" class="img" />
+            <div class="text">加群认识更多塔友</div>
+        </div>
 
         <div v-if="isIng && !isError" class="isIng">正在解读...请稍等</div>
         <div v-if="isError" class="isIng">解读失败，请重试</div>
         <div v-if="isError" class="isIng isError" @click="handleAskApi">重试</div>
 
-        <div v-if="resData.total" class="analysis-content">
+        <div  class="analysis-content">
             <div class="tr">
                 <div class="title">整体解读</div>
                 <div class="content">{{ resData.total }}</div>
@@ -172,7 +176,7 @@ onMounted(() => {
 }
 
 .analysis-content {
-    padding-top: 1.5rem;
+    padding-top: 2.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 0.5rem;
@@ -194,5 +198,23 @@ onMounted(() => {
 
 .mono-tr {
     margin-bottom: 0.3rem;
+}
+
+.weixin-box {
+    position: fixed;
+    top: 0.2rem;
+    left: 0.3rem;
+     text-align: center;
+}
+
+.weixin-box .img {
+    width: 2rem;
+    margin: auto;
+}
+.weixin-box .text{
+    font-size: 0.3rem;
+    color: #fff;
+    text-align: center;
+    margin-top: 0.1rem;
 }
 </style>

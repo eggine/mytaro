@@ -11,3 +11,13 @@ export function getUUID(): string {
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
   })
 }
+
+export function isMobile() {
+    const userAgentInfo = navigator.userAgent;
+    console.log(userAgentInfo)
+    const mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+     const mobileFlag = mobileAgents.some((mobileAgent) => {
+        return userAgentInfo.indexOf(mobileAgent) > 0;
+    });
+    return mobileFlag;
+}

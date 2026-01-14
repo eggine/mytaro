@@ -26,13 +26,13 @@ const currentCard = computed(() => {
 })
 const currentCardId = ref('')
 const role = ref('知心姐姐')
+const CARDS_PER_ROW = props.selectedCardList.length > 6 ? 4 : 3 // 每行固定放三张
 
 // 2. 计算分组后的二维数组（核心逻辑）
 const cardRows = computed(() => {
     const rows = []
     let currentIndex = 0 // 记录当前处理到的牌的索引
     const selectedCardList = props.selectedCardList
-    const CARDS_PER_ROW = 3 // 每行固定放三张
 
     // 循环分组，直到所有牌都被分配
     while (currentIndex < selectedCardList.length) {
@@ -77,12 +77,12 @@ defineExpose({
         <div class="selected-card-box">
             <div class="card-row" v-for="(row, rowIndex) in cardRows" :key="rowIndex">
                 <!-- 内层循环：渲染当前行的每张牌 -->
-                <div class="card-item" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
-                    <div class="card">
+                <div class="card-item" :class="{'card-item-min': CARDS_PER_ROW === 4}" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
+                    <div class="card" :class="{'card-min': CARDS_PER_ROW === 4}">
                         <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;"
                             :style="{ transform: card.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
                     </div>
-                    <div class="card-text">{{ slots[cardIndex + rowIndex * 3] }}</div>
+                    <div class="card-text" :class="{'card-text-min': CARDS_PER_ROW === 4}">{{ slots[cardIndex + rowIndex * CARDS_PER_ROW] }}</div>
                 </div>
             </div>
         </div>
@@ -92,9 +92,9 @@ defineExpose({
                 <div>
 
                     <div class="title-box">
-                        <div class="card-desc">描述：{{ currentCard.description }}</div>
-                        <div class="card-upright">正位：{{ currentCard.upright }}</div>
-                        <div class="card-reversed">逆位：{{ currentCard.reversed }}</div>
+                        <div class="card-desc"><span style="color:yellow">描述：</span>{{ currentCard.description }}</div>
+                        <div class="card-upright"><span style="color:yellow">正位：</span>{{ currentCard.upright }}</div>
+                        <div class="card-reversed"><span style="color:yellow">逆位：</span>{{ currentCard.reversed }}</div>
                     </div>
                     <div :class="{ 'active-box': currentCardId }">
                         <div class="card-name">{{ currentCard.name }}</div>
@@ -113,6 +113,7 @@ defineExpose({
                 <option value="暴躁老哥" style="background-color: blue;">暴躁老哥</option>
             </select>
         </div>
+        
     </div>
 </template>
 
@@ -170,6 +171,21 @@ defineExpose({
     justify-content: center;
     z-index: 1;
 }
+
+.card-item-min {
+    width: 2.2rem;
+    height: 4.2rem;
+}
+
+.card-min {
+    width: 2.2rem;
+    height: 3rem;
+}
+
+.card-text-min {
+    font-size: 0.3rem;
+}
+
 
 .card:hover {
     transform: translateY(-5px);
@@ -249,6 +265,8 @@ defineExpose({
     color: #ffffff;
     top: 30%;
     padding-right: 0.3rem;
+    z-index: 9;
+    text-shadow: 2px 2px 5px #000;
 }
 
 .card-name {
@@ -261,16 +279,7 @@ defineExpose({
     transform: translateY(-150%);
 }
 
-@media screen and (max-width: 760px) {
-    .title-box {
-        bottom: 8%;
-        top: auto;
-        left: 64%;
-        transform: translateX(-50%);
-        padding-right: 0;
-        width: 100%;
-    }
-}
+
 
 .card-btn-box {
     position: absolute;
@@ -305,5 +314,64 @@ defineExpose({
     border-radius: 4px;
     text-align: center;
     cursor: pointer;
+}
+
+@media screen and (max-width: 760px) {
+    .title-box {
+        bottom: 8%;
+        top: auto;
+        left: 64%;
+        transform: translateX(-50%);
+        padding-right: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 540px) and (max-width: 610px) {
+    .card-item-min {
+        width: 2rem;
+        height: 3.4rem;
+    }
+
+    .card-min {
+        width: 2rem;
+        height: 3rem;
+    }
+
+    .card-text-min {
+        font-size: 0.25rem;
+    }
+}
+
+@media screen and (min-width: 611px) and (max-width: 680px) {
+    .card-item-min {
+        width: 1.6rem;
+        height: 3rem;
+    }
+
+    .card-min {
+        width: 1.6rem;
+        height: 2.6rem;
+    }
+
+    .card-text-min {
+        font-size: 0.2rem;
+    }
+}
+
+@media screen and (min-width: 681px) and (max-width: 759px) {
+    .card-item-min {
+        width: 1.4rem;
+        height: 2.8rem;
+    }
+
+    .card-min {
+        width: 1.4rem;
+        height: 2.4rem;
+    }
+
+    .card-text-min {
+        font-size: 0.2rem;
+    }
 }
 </style>
