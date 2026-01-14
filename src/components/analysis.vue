@@ -210,7 +210,7 @@ onMounted(() => {
 }
 
 .weixin-box .img {
-    width: 2rem;
+    width: 3rem;
     margin: auto;
 }
 .weixin-box .text{
