@@ -106,7 +106,7 @@ onMounted(() => {
         <div v-if="isError" class="isIng">解读失败，请重试</div>
         <div v-if="isError" class="isIng isError" @click="handleAskApi">重试</div>
 
-        <div  class="analysis-content">
+        <div v-if="resData.total" class="analysis-content">
             <div class="tr">
                 <div class="title">整体解读</div>
                 <div class="content">{{ resData.total }}</div>
