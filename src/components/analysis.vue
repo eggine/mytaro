@@ -97,7 +97,7 @@ onMounted(() => {
 <template>
     <div class="analysis-box fixed w-full h-full left-0 top-0 bg-black bottom-0 right-0">
         <div class="back-btn" @click="handleBackClick">返回</div>
-        <div class="weixin-box">
+        <div v-if="!resData.total" class="weixin-box">
             <img src="/weixin.jpg" class="img" />
             <div class="text">加群认识更多塔友</div>
         </div>
@@ -202,9 +202,11 @@ onMounted(() => {
 
 .weixin-box {
     position: fixed;
-    top: 0.2rem;
-    left: 0.3rem;
-     text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 100;
 }
 
 .weixin-box .img {
