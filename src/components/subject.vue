@@ -32,7 +32,7 @@ const handleSubjectClick = (index) => {
     <div class="w-full h-full">
         <div class="subject-box p-[2rem]">
             <div class="subject-type" :class="{ 'fade': isTypeSelect }" v-show="typeHide">
-                <div class="title text-[0.6rem] mb-[4rem] text-[#fff] text-center">请选择题目类型</div>
+                <div class="title text-[0.6rem] mb-[4rem] text-[#fff] text-center">口袋塔塔</div>
                 <div v-for="(item, index) in subjectTypeList" :key="item.id" class="text-[#fff] text-[0.8rem] td"
                     :class="{ 'click': selectTypeIndex === index && isTypeSelect }" @click="handleTypeClick(index)">
                     {{ item.kind }}
