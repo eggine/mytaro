@@ -98,7 +98,7 @@ const handleSubjectClick = (index) => {
     margin: 0.2rem;
     text-align: left;
     color: #fff;
-    font-size: 0.8rem;
+    font-size: 0.5rem;
 }
 
 .title-tr.click {
