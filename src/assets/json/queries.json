@@ -3,20 +3,20 @@
     "kind": "通用",
     "details": [
       {
-        "descrip": "每日运势",
+        "descrip": "我今天的运势如何？",
         "spread": 12
       },
       {
-        "descrip": "事情发展趋势",
-        "spread": 1
+        "descrip": "我今年的运势如何？",
+        "spread": 23
       },
       {
-        "descrip": "决策二选一",
-        "spread": 5
+        "descrip": "我有哪些尚未被挖掘的潜能或优势？",
+        "spread": 24
       },
       {
-        "descrip": "决策三选一",
-        "spread": 6
+        "descrip": "我近期需要注意哪些陷阱？",
+        "spread": 25
       }
     ]
   },
@@ -24,19 +24,19 @@
     "kind": "感情",
     "details": [
       {
-        "descrip": "分析恋人复合可能性",
+        "descrip": "分手后还能和ta复合吗？",
         "spread": 8
       },
       {
-        "descrip": "剖析婚姻关系",
+        "descrip": "当前的婚姻关系会如何发展？",
         "spread": 7
       },
       {
-        "descrip": "探索下一任伴侣的信息和发展",
+        "descrip": "我的未来伴侣是什么样的？",
         "spread": 9
       },
       {
-        "descrip": "探索两人当下的情感状态和问题",
+        "descrip": "我和ta的关系走向？",
         "spread": 10
       }
     ]
@@ -45,25 +45,20 @@
     "kind": "事业",
     "details": [
       {
-        "descrip": "是否应该跳槽",
-        "spread": 5
+        "descrip": "我现在是否适合跳槽或创业？",
+        "spread": 4
       },
       {
-        "descrip": "目前的行业是否有发展空间",
-        "spread": 3
-      }
-    ]
-  },
-  {
-    "kind": "健康",
-    "details": [
-      {
-        "descrip": "还能活几年",
-        "spread": 1
+        "descrip": "我今天的面试结果如何？",
+        "spread": 13
       },
       {
-        "descrip": "什么时候康复",
-        "spread": 1
+        "descrip": "我是否适合现在从事的行业？",
+        "spread": 14
+      },
+      {
+        "descrip": "我怎样才能获得上级或客户的认可？",
+        "spread": 15
       }
     ]
   },
@@ -71,12 +66,38 @@
     "kind": "学业",
     "details": [
       {
-        "descrip": "会不会挂科",
-        "spread": 0
+        "descrip": "如何提升我的学习成绩？",
+        "spread": 20
       },
       {
-        "descrip": "能不能上清华",
-        "spread": 0
+        "descrip": "当前的专业适合我吗？",
+        "spread": 21
+      },
+      {
+        "descrip": "我接下来的考试总体运势如何？",
+        "spread": 22
+      },
+      { "descrip": "我应该读研还是就业？", "spread": 5 }
+    ]
+  },
+  {
+    "kind": "健康(有病看医生)",
+    "details": [
+      {
+        "descrip": "造成我最近焦虑/失眠的根源是什么？",
+        "spread": 16
+      },
+      {
+        "descrip": "为了改善我的体质需要改进什么哪些生活习惯？",
+        "spread": 17
+      },
+      {
+        "descrip": "如何加快我的康复进程？",
+        "spread": 18
+      },
+      {
+        "descrip": "我有多长寿？",
+        "spread": 19
       }
     ]
   }
