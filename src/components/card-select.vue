@@ -34,19 +34,32 @@ const cardSpread = spread[props.selectedSubject.spread].slots.length
 const cardSpreadNum = ref(cardSpread)
 const selectedCardList = ref([])
 
+// Fisher-Yates 洗牌算法
+const shuffleArray = (array) => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 // 初始化卡片数组
 const initCardList = () => {
+  // 打乱原始卡片顺序
+  const shuffledCards = shuffleArray(cardsJson)
+  // 从打乱后的卡片中选取前 totalCardNum 张
   cardList.value = Array.from({ length: totalCardNum }, (_, i) => ({
     index: i + 1,
     randomRotate: (Math.random() - 0.5) * 4, // 随机±2度旋转，错落有致
     // ✨ 新增：核心-给每个卡片生成递增的延迟时间，实现依次出场 i越大延迟越长
     delayMs: i * animateDelayStep,
-    id: cardsJson[i].id,
-    name: cardsJson[i].name,
-    description: cardsJson[i].description,
-    upright: cardsJson[i].upright,
-    reversed: cardsJson[i].reversed,
-    img: '/data/cards/' + cardsJson[i].id + '.jpg',
+    id: shuffledCards[i].id,
+    name: shuffledCards[i].name,
+    description: shuffledCards[i].description,
+    upright: shuffledCards[i].upright,
+    reversed: shuffledCards[i].reversed,
+    img: '/data/cards/' + shuffledCards[i].id + '.jpg',
     isReversed: Math.random() > 0.5,
     isRead: false
   }))
