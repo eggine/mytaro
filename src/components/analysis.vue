@@ -62,6 +62,7 @@ async function handleAskApi() {
         slot: slots[index],
         name: card.name,
         description: card.description,
+        reversed: card.isReversed,
         meaning: card.isReversed ? card.reversed : card.upright,
     }))
     const params = {
@@ -154,11 +155,15 @@ onMounted(() => {
 
 .isIng {
     color: #fff;
-    font-size: 0.4rem;
-    padding: 0.1rem 0.4rem;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.6rem;
     cursor: pointer;
     border-radius: 4px;
     text-align: center;
+    position: absolute;
+    top: 20vh; /* 距离页面上边缘1/4页面高度 */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .isError {

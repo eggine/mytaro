@@ -1,5 +1,26 @@
 [
   {
+    "kind": "通用",
+    "details": [
+      {
+        "descrip": "每日运势",
+        "spread": 12
+      },
+      {
+        "descrip": "事情发展趋势",
+        "spread": 1
+      },
+      {
+        "descrip": "决策二选一",
+        "spread": 5
+      },
+      {
+        "descrip": "决策三选一",
+        "spread": 6
+      }
+    ]
+  },
+  {
     "kind": "感情",
     "details": [
       {
@@ -56,27 +77,6 @@
       {
         "descrip": "能不能上清华",
         "spread": 0
-      }
-    ]
-  },
-  {
-    "kind": "通用",
-    "details": [
-      {
-        "descrip": "每日运势",
-        "spread": 12
-      },
-      {
-        "descrip": "事情发展趋势",
-        "spread": 1
-      },
-      {
-        "descrip": "决策二选一",
-        "spread": 5
-      },
-      {
-        "descrip": "决策三选一",
-        "spread": 6
       }
     ]
   }
