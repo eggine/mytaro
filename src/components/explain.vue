@@ -140,7 +140,7 @@ defineExpose({
 }
 
 .card-item {
-    width: 3rem;
+    width: 2.25rem;
     position: relative;
     height: 5.5rem;
 }
@@ -152,7 +152,7 @@ defineExpose({
 }
 
 .card {
-    width: 3rem;
+    width: 2.2rem;
     height: 4.4rem;
     font-size: 14px;
     font-weight: bold;
@@ -173,12 +173,12 @@ defineExpose({
 }
 
 .card-item-min {
-    width: 2.2rem;
+    width: 2.1rem;
     height: 4.2rem;
 }
 
 .card-min {
-    width: 2.2rem;
+    width: 1.5rem;
     height: 3rem;
 }
 

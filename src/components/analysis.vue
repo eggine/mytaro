@@ -108,19 +108,19 @@ onMounted(() => {
         <div v-if="isError" class="isIng isError" @click="handleAskApi">重试</div>
 
         <div v-if="resData.total" class="analysis-content">
-            <div class="tr">
+            <div class="tr total-interpretation-wrapper">
                 <div class="title">整体解读</div>
                 <div class="content">{{ resData.total }}</div>
             </div>
-            <div class="tr">
+            <div class="tr advise-wrapper">
                 <div class="title">建议</div>
                 <div class="content">{{ resData.advise }}</div>
             </div>
-            <div class="tr">
+            <div class="tr mono-interpretation-wrapper">
                 <div class="title">逐牌解读</div>
                 <div class="content">
                     <div v-for="(item, index) in resData.mono" :key="index" class="mono-tr">
-                        <span style="color:yellow;">{{ slots[index] }}：</span>{{ item }}
+                        <span style="color:orange;">{{ slots[index] }}：</span>{{ item }}
                     </div>
                 </div>
             </div>
@@ -136,25 +136,27 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(251, 243, 224, 1);
     z-index: 99;
     overflow: auto;
 }
 
 .back-btn {
-    position: absolute;
+    position: fixed;
     top: 0.5rem;
     right: 1rem;
-    color: #fff;
+    color: #000000;
     font-size: 0.4rem;
-    border: 1px solid #fff;
+    border: 1px solid rgb(250, 217, 0);
+    background-color: rgb(250, 217, 52);
     padding: 0.1rem 0.4rem;
     cursor: pointer;
     border-radius: 4px;
+    z-index: 100;
 }
 
 .isIng {
-    color: #fff;
+    color: #000000;
     font-size: 0.6rem;
     padding: 0.3rem 0.6rem;
     cursor: pointer;
@@ -167,7 +169,7 @@ onMounted(() => {
 }
 
 .isError {
-    border: 1px solid #fff;
+    border: 1px solid #000000;
     height: 0.8rem;
     line-height: 0.8rem;
     padding: 0 0.8rem;
@@ -192,12 +194,33 @@ onMounted(() => {
 }
 
 .title {
-    color: #fff;
+    color: #694a00;
     font-size: 0.6rem;
 }
 
+.total-interpretation-wrapper {
+    border: 2px solid rgb(221, 187, 92);
+    border-radius: 10px;
+    padding: 0.5rem;
+    background-color: rgba(250, 237, 192); 
+}
+
+.advise-wrapper {
+    border: 2px solid rgb(185, 230, 125);
+    border-radius: 10px;
+    padding: 0.5rem;
+    background-color: rgba(157, 247, 192);
+}
+
+.mono-interpretation-wrapper {
+    border: 2px solid rgb(128, 208, 243);
+    border-radius: 10px;
+    padding: 0.5rem;
+    background-color: rgba(201, 251, 250);
+}
+
 .content {
-    color: #fff;
+    color: #000000;
     font-size: 0.4rem;
 }
 
@@ -220,7 +243,7 @@ onMounted(() => {
 }
 .weixin-box .text{
     font-size: 0.3rem;
-    color: #fff;
+    color: #000000;
     text-align: center;
     margin-top: 0.1rem;
 }
