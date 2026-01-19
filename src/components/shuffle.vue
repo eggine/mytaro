@@ -299,7 +299,7 @@ onUnmounted(() => {
                 class="card" 
                 :style="cardStyle(card)"
             >
-                <img src="/data/back.jpg" width="100%" height="100%" />
+                <img src="/data/cards/cute/back.jpg" width="100%" height="100%" />
             </div>
         </div>
 

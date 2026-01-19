@@ -66,7 +66,7 @@ const initCardList = () => {
     description: shuffledCards[i].description,
     upright: shuffledCards[i].upright,
     reversed: shuffledCards[i].reversed,
-    img: "/data/cards/" + shuffledCards[i].id + ".jpg",
+    img: "/data/cards/cute/" + shuffledCards[i].id + ".jpg",
     isReversed: Math.random() > 0.5,
     isRead: false,
   }));
@@ -170,7 +170,7 @@ onUnmounted(() => {
         <div class="card-inner">
           <div class="card-face card-back">
             <img
-              src="/data/back.jpg"
+              src="/data/cards/cute/back.jpg"
               width="100%"
               height="100%"
               style="width: 100%; height: 100%"

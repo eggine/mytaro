@@ -47,7 +47,7 @@ function handleRead(data) {
 
 <template>
   <div class="w-full h-full">
-    <img src="/data/back.jpg"  style="display: none;" />
+    <img src="/data/cards/cute/back.jpg"  style="display: none;" />
     <Subject v-if="flow === 'subject'" @selectSubject="handleSelectSubject" />
     <Shuffle v-if="flow === 'shuffle'" :selectedSubject="selectedSubject" @shuffleEnd="handleShuffleEnd" />
     <CardSelect v-if="flow === 'select'" :selectedSubject="selectedSubject" @selectCard="handleSelectCard" />
