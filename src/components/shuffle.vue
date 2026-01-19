@@ -336,6 +336,7 @@ onUnmounted(() => {
     transform: translateZ(0);
     backface-visibility: hidden;
     overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .btn-box {

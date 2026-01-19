@@ -122,10 +122,6 @@ const handleCardClick = (item) => {
   }
 };
 
-function handleCardImg(item) {
-  return "/data/MinorArcana/" + subjectId + "/" + item.id + ".jpg";
-}
-
 // 生命周期
 onMounted(() => {
   initCardList();
@@ -220,6 +216,7 @@ onUnmounted(() => {
   padding: 0.4rem;
   box-sizing: border-box;
   padding-top: 0.9rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* ========== 核心紧凑修改 保留不变 ========== */

@@ -118,6 +118,19 @@ defineExpose({
 </template>
 
 <style scoped>
+.h-full.w-full {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 100% 100%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .selected-card-box {
     display: flex;
     flex-wrap: wrap;
@@ -146,7 +159,7 @@ defineExpose({
 }
 
 .card-text {
-    color: #fff;
+    color: rgb(250, 217, 52);
     text-align: center;
     font-size: 0.4rem;
 }
@@ -293,8 +306,9 @@ defineExpose({
 
 .btn-1 {
     font-size: 0.4rem;
-    color: #fff;
+    color: #000000;
     border: 1px solid #fff;
+    background-color: rgb(250, 217, 52);
     height: 0.8rem;
     line-height: 0.8rem;
     padding: 0 0.8rem;
@@ -306,7 +320,8 @@ defineExpose({
 
 .btn-2 {
     font-size: 0.4rem;
-    color: #fff;
+    color: #000000;
+    background-color: rgb(250, 217, 52);
     border: 1px solid #fff;
     height: 0.8rem;
     line-height: 0.8rem;
