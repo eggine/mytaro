@@ -253,8 +253,7 @@ const cardStyle = (card) => {
         // 使用transform3d进行硬件加速
         transform: `translate3d(${left}px, ${top}px, 0) rotate(${card.rotation}deg)`,
         willChange: 'transform',
-        zIndex: card.zIndex,
-        boxShadow: `0 2px 10px rgba(0,0,0,${0.15 + card.orbitIndex * 0.03})`,
+        zIndex: card.zIndex
     }
 }
 
@@ -452,8 +451,7 @@ onUnmounted(() => {
     justify-content: center;
     font-size: 0.25rem;
     font-weight: bold;
-    color: #333;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    color: #ff0000;
     transform-origin: center;
     /* 启用硬件加速 */
     will-change: transform;
