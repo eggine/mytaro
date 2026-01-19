@@ -425,7 +425,7 @@ onUnmounted(() => {
     box-shadow: 
         0 0 30px rgba(52, 152, 219, 0.4),
         0 0 0 10px rgba(255, 165, 0, 0.1); /* 增加按钮周围的发光效果 */
-    color: #fff;
+    color: #000000;
     font-size: 0.25rem;
     display: flex;
     align-items: center;
