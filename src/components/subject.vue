@@ -33,10 +33,13 @@ const handleSubjectClick = (index) => {
         <div class="subject-box p-[2rem]">
             <div class="subject-type" :class="{ 'fade': isTypeSelect }" v-show="typeHide">
                 <div class="title text-[0.6rem] mb-[4rem] text-[#000] text-center">口袋塔塔-内测版</div>
-                <div v-for="(item, index) in subjectTypeList" :key="item.id" class="text-[#000] text-[0.8rem] td"
-                    :class="{ 'click': selectTypeIndex === index && isTypeSelect }" @click="handleTypeClick(index)">
-                    {{ item.kind }}
+                <div class="subject-grid">
+                    <div v-for="(item, index) in subjectTypeList" :key="item.id" class="text-[#000] text-[0.6rem] td"
+                        :class="{ 'click': selectTypeIndex === index && isTypeSelect }" @click="handleTypeClick(index)">
+                        {{ item.kind }}
+                    </div>
                 </div>
+                <div class="title text-[0.4rem] mb-[4rem] text-[#444] text-center">解读结果由ai生成，请注意甄别</div>
             </div>
 
             <div v-show="!typeHide">
@@ -85,6 +88,12 @@ const handleSubjectClick = (index) => {
 
 .title {
     margin-bottom: 1rem;
+}
+
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem;
 }
 
 .td {

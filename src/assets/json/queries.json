@@ -29,27 +29,49 @@
     ]
   },
   {
-    "kind": "感情",
+    "kind": "恋爱",
     "details": [
       {
         "descrip": "分手后还能和ta复合吗？",
         "spread": 8
       },
       {
+        "descrip": "我未来的恋爱对象是什么样的？",
+        "spread": 9
+      },
+      {
+        "descrip": "我和恋爱对象的关系走向？",
+        "spread": 10
+      },
+      {
+        "descrip": "我什么时候能找到恋爱对象？",
+        "spread": 0
+      }
+    ]
+  },
+  {
+    "kind": "婚姻",
+    "details": [
+      {
         "descrip": "当前的婚姻关系会如何发展？",
         "spread": 7
       },
       {
-        "descrip": "我的未来伴侣是什么样的？",
-        "spread": 9
-      },
+        "descrip": "ta是不是有外遇了？",
+        "spread": 0
+      }
+    ]
+  },
+  {
+    "kind": "相亲",
+    "details": [
       {
-        "descrip": "我和ta的关系走向？",
-        "spread": 10
-      },
-      {
-        "descrip": "今天的相亲会成功牵手吗？",
+        "descrip": "下次的相亲会成功牵手吗？",
         "spread": 26
+      },
+      {
+        "descrip": "下次的相亲对象是怎样的人？",
+        "spread": 9
       }
     ]
   },
@@ -57,19 +79,32 @@
     "kind": "事业",
     "details": [
       {
-        "descrip": "我现在是否适合跳槽或创业？",
+        "descrip": "我现在适合创业吗？",
         "spread": 4
-      },
-      {
-        "descrip": "我今天的面试结果如何？",
-        "spread": 13
       },
       {
         "descrip": "我是否适合现在从事的行业？",
         "spread": 14
       },
       {
-        "descrip": "我怎样才能获得上级或客户的认可？",
+        "descrip": "我怎样才能获得客户的认可？",
+        "spread": 15
+      }
+    ]
+  },
+  {
+    "kind": "职场",
+    "details": [
+      {
+        "descrip": "我现在应该跳槽吗？",
+        "spread": 4
+      },
+      {
+        "descrip": "我下次的面试结果如何？",
+        "spread": 13
+      },
+      {
+        "descrip": "我怎样才能获得上级的认可？",
         "spread": 15
       }
     ]
@@ -93,7 +128,7 @@
     ]
   },
   {
-    "kind": "健康(别信治疗建议)",
+    "kind": "健康",
     "details": [
       {
         "descrip": "造成我最近焦虑/失眠的根源是什么？",
