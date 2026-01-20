@@ -184,7 +184,7 @@ onUnmounted(() => {
               style="width: 100%; height: 100%"
               :style="{
                 transform: item.isReversed
-                  ? 'rotateX(180deg)'
+                  ? 'rotateZ(180deg)'
                   : 'rotateX(0deg)',
               }"
             />
