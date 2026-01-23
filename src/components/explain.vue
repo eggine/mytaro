@@ -80,7 +80,7 @@ defineExpose({
                 <div class="card-item" :class="{'card-item-min': CARDS_PER_ROW === 4}" v-for="(card, cardIndex) in row" :key="cardIndex" @click="handleCardClick(card)">
                     <div class="card" :class="{'card-min': CARDS_PER_ROW === 4}">
                         <img :src="card.img" width="100%" height="100%" style="width: 100%; height: 100%;"
-                            :style="{ transform: card.isReversed ? 'rotateZ(180deg)' : 'rotateX(0deg)' }" />
+                            :style="{ transform: card.isReversed ? 'rotateZ(180deg)' : 'rotateZ(0deg)' }" />
                     </div>
                     <div class="card-text" :class="{'card-text-min': CARDS_PER_ROW === 4}">{{ slots[cardIndex + rowIndex * CARDS_PER_ROW] }}</div>
                 </div>
@@ -100,7 +100,7 @@ defineExpose({
                         <div class="card-name">{{ currentCard.name }}</div>
                         <div class="card">
                             <img :src="currentCard.img" width="100%" height="100%" style="width: 100%; height: 100%;"
-                                :style="{ transform: currentCard.isReversed ? 'rotateX(180deg)' : 'rotateX(0deg)' }" />
+                                :style="{ transform: currentCard.isReversed ? 'rotateZ(180deg)' : 'rotateZ(0deg)' }" />
                         </div>
                     </div>
                 </div>

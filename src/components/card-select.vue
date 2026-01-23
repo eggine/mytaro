@@ -67,7 +67,7 @@ const initCardList = () => {
     upright: shuffledCards[i].upright,
     reversed: shuffledCards[i].reversed,
     img: "/data/cards/cute/" + shuffledCards[i].id + ".jpg",
-    isReversed: Math.random() > 0.5,
+    isReversed: Math.random() > 0.65,
     isRead: false,
   }));
   const totalDelayMs = (totalCardNum - 1) * animateDelayStep;
