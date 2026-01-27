@@ -3,28 +3,28 @@
     "kind": "通用",
     "details": [
       {
-        "descrip": "我今天的运势如何？",
+        "descrip": "我明天的运势如何？",
         "spread": 12
       },
       {
-        "descrip": "我今年的运势如何？",
-        "spread": 23
+        "descrip": "我本周的运势如何？",
+        "spread": 12
       },
       {
-        "descrip": "帮我做二选一抉择。",
-        "spread": 5
-      },
-      {
-        "descrip": "事情的发展趋势如何？",
-        "spread": 0
-      },
-      {
-        "descrip": "我有哪些尚未被挖掘的潜能或优势？",
-        "spread": 24
+        "descrip": "我如何提升自己的财运？",
+        "spread": 28
       },
       {
         "descrip": "我近期需要注意哪些陷阱？",
         "spread": 25
+      },
+      {
+        "descrip": "我有哪些潜能或优势？",
+        "spread": 24
+      },
+      {
+        "descrip": "我怎么找回走丢的宠物？",
+        "spread": 29
       }
     ]
   },
@@ -32,20 +32,20 @@
     "kind": "恋爱",
     "details": [
       {
-        "descrip": "分手后还能和ta复合吗？",
+        "descrip": "我能和前任复合吗？",
         "spread": 8
       },
       {
-        "descrip": "我未来的恋爱对象是什么样的？",
+        "descrip": "我适合跟什么样的人谈恋爱？",
         "spread": 9
       },
       {
-        "descrip": "我和恋爱对象的关系走向？",
+        "descrip": "我们现在的恋情会如何发展？",
         "spread": 10
       },
       {
-        "descrip": "我什么时候能找到恋爱对象？",
-        "spread": 0
+        "descrip": "我如何找到伴侣？",
+        "spread": 30
       }
     ]
   },
@@ -53,11 +53,19 @@
     "kind": "婚姻",
     "details": [
       {
-        "descrip": "当前的婚姻关系会如何发展？",
+        "descrip": "我们的婚姻关系会如何发展？",
         "spread": 7
       },
       {
-        "descrip": "ta是不是有外遇了？",
+        "descrip": "如何提升我们的婚姻亲密度？",
+        "spread": 0
+      },
+      {
+        "descrip": "我们的婚姻中存在哪些障碍？",
+        "spread": 0
+      },
+      {
+        "descrip": "育儿会如何影响我们的婚姻？",
         "spread": 0
       }
     ]
@@ -66,11 +74,19 @@
     "kind": "相亲",
     "details": [
       {
-        "descrip": "下次的相亲会成功牵手吗？",
+        "descrip": "我和相亲对象的契合度如何？",
         "spread": 26
       },
       {
-        "descrip": "下次的相亲对象是怎样的人？",
+        "descrip": "为什么相亲对象表现冷淡？",
+        "spread": 31
+      },
+      {
+        "descrip": "相亲过程中我需要注意什么？",
+        "spread": 32
+      },
+      {
+        "descrip": "我的相亲对象有什么特质？",
         "spread": 9
       }
     ]
@@ -83,15 +99,15 @@
         "spread": 4
       },
       {
-        "descrip": "我是否适合现在从事的行业？",
+        "descrip": "有哪些因素阻碍我的项目进展？",
         "spread": 14
       },
       {
-        "descrip": "我怎样才能获得客户的认可？",
+        "descrip": "我如何获得客户的认可？",
         "spread": 15
       },
       {
-        "descrip": "我从事的行业发展前景如何？",
+        "descrip": "我的项目未来半年的发展如何？",
         "spread": 27
       }
     ]
@@ -104,12 +120,16 @@
         "spread": 4
       },
       {
-        "descrip": "我下次的面试结果如何？",
+        "descrip": "我如何提升面试成功率？",
         "spread": 13
       },
       {
-        "descrip": "我怎样才能获得上级的认可？",
+        "descrip": "我如何获得上级的认可？",
         "spread": 15
+      },
+      {
+        "descrip": "我如何提升人缘融入团队？",
+        "spread": 0
       }
     ]
   },
@@ -125,7 +145,7 @@
         "spread": 21
       },
       {
-        "descrip": "我接下来的考试总体运势如何？",
+        "descrip": "我本周的考试运势如何？",
         "spread": 22
       },
       { "descrip": "我应该读研还是就业？", "spread": 5 }
@@ -135,19 +155,19 @@
     "kind": "健康",
     "details": [
       {
-        "descrip": "造成我最近焦虑/失眠的根源是什么？",
+        "descrip": "如何改善我的睡眠质量？",
         "spread": 16
       },
       {
-        "descrip": "为了改善我的体质需要改进什么哪些生活习惯？",
+        "descrip": "我为什么最近总是觉得疲惫？",
         "spread": 17
       },
       {
-        "descrip": "如何加快我的康复进程？",
+        "descrip": "我如何保持身体健康？",
         "spread": 18
       },
       {
-        "descrip": "我有多长寿？",
+        "descrip": "我如何提升自身正能量？",
         "spread": 19
       }
     ]
